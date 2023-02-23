@@ -1,0 +1,5 @@
+﻿  ferchus-informatica-grafica-a3-polygon-modes.cpp
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a3-polygon-modes\ferchus-informatica-grafica-a3-polygon-modes.cpp(28,14): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a3-polygon-modes\ferchus-informatica-grafica-a3-polygon-modes.cpp(89,13): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a3-polygon-modes\ferchus-informatica-grafica-a3-polygon-modes.cpp(96,17): warning C4309: 'inicializando': truncamiento de valor constante
+  ferchus-informatica-grafica-a3-polygon-modes.vcxproj -> C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a3-polygon-modes\Debug\ferchus-informatica-grafica-a3-polygon-modes.exe
