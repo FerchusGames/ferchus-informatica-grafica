@@ -7,7 +7,8 @@
 #define 	GLFW_KEY_1  49
 #define 	GLFW_KEY_2  50
 #define 	GLFW_KEY_3	51
-#define 	GLFW_KEY_P	80
+#define 	GLFW_KEY_P_UPPERCASE	80
+#define 	GLFW_KEY_P_LOWERCASE	112
 
 using namespace std;
 
@@ -100,7 +101,7 @@ void renderScene(void)
 			1.0f, 1000.0f);
 	}
 
-	int cameraPos = -10 * cameraDistanceMultiplier;
+	int cameraPos = 10 * cameraDistanceMultiplier;
 
 	gluLookAt(
 		0, 0, cameraPos, //pos
@@ -113,7 +114,7 @@ void renderScene(void)
 	
 	glPushMatrix();
 
-		glRotatef(rotationSpeed * t / 1000, -1, 1, -1);
+		glRotatef(rotationSpeed * t / 1000, 1, 1, 0);
 
 		// Cúspide = (0, 2, -1)
 
@@ -122,9 +123,60 @@ void renderScene(void)
 
 		glBegin(GL_QUADS);
 
-		glColor3f(0, 1, 0);
+			// Green Square
 
-			// Continúa aquí
+			glColor3f(0, 1, 0);
+
+			glVertex3f(-1, -1, 4);
+			glVertex3f(1, -1, 4);
+			glVertex3f(1, 1, 4);
+			glVertex3f(-1, 1, 4);
+
+			// Blue Square
+
+			glColor3f(0, 0, 1);
+
+			glVertex3f(-1, -1, -4);
+			glVertex3f(1, -1, -4);
+			glVertex3f(1, 1, -4);
+			glVertex3f(-1, 1, -4);
+
+			// Yellow Rectangle
+
+			glColor3f(1, 1, 0);
+
+			glVertex3f(-1, 1, 4);
+			glVertex3f(1, 1, 4);
+			glVertex3f(1, 1, -4);
+			glVertex3f(-1, 1, -4);
+
+			// Purple Rectangle
+
+			glColor3f(1, 0, 1);
+
+			glVertex3f(-1, -1, 4);
+			glVertex3f(1, -1, 4);
+			glVertex3f(1, -1, -4);
+			glVertex3f(-1, -1, -4);
+
+			// Orange Rectangle
+
+			glColor3f(1, 0.5f, 0);
+
+			glVertex3f(-1, 1, 4);
+			glVertex3f(-1, -1, 4);
+			glVertex3f(-1, -1, -4);
+			glVertex3f(-1, 1, -4);
+
+			// Red Rectangle
+
+			glColor3f(1, 0, 0);
+
+			glVertex3f(1, 1, 4);
+			glVertex3f(1, -1, 4);
+			glVertex3f(1, -1, -4);
+			glVertex3f(1, 1, -4);
+
 
 		glEnd();
 
@@ -155,7 +207,12 @@ void processNormalKeys(unsigned char key, int x, int y)
 			break;
 	}
 
-	if (key == GLFW_KEY_P)
+	if (key == GLFW_KEY_P_UPPERCASE)
+	{
+		isInPerspective = !isInPerspective;
+	}
+
+	if (key == GLFW_KEY_P_LOWERCASE)
 	{
 		isInPerspective = !isInPerspective;
 	}
@@ -186,6 +243,7 @@ int main(int argc, char* argv[]) {
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowSize(1600, 900); //dimensiones
 	glutCreateWindow("TemplateWindow");
+	glutFullScreen();
 	Initialization();
 
 	// register callbacks
