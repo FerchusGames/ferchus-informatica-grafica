@@ -1,0 +1,5 @@
+﻿  ferchus-informatica-grafica-a4-perspectivas.cpp
+C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-a4-perspectivas\ferchus-informatica-grafica-a4-perspectivas.cpp(32,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-a4-perspectivas\ferchus-informatica-grafica-a4-perspectivas.cpp(97,18): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-a4-perspectivas\ferchus-informatica-grafica-a4-perspectivas.cpp(110,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  ferchus-informatica-grafica-a4-perspectivas.vcxproj -> C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-a4-perspectivas\Debug\ferchus-informatica-grafica-a4-perspectivas.exe
