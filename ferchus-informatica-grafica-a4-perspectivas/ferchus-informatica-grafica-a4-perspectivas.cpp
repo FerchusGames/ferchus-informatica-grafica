@@ -88,7 +88,7 @@ void renderScene(void)
 
 	if (isInPerspective)
 	{
-		gluPerspective(45.0f, 1600 * 1.0 / 900, 0.1f, 100.0f);
+		gluPerspective(45.0f, 400 * 1.0 / 300, 0.1f, 100.0f);
 	}
 
 	else
