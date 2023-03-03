@@ -1,0 +1,20 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (ferchus-informatica-grafica-a1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  ferchus-informatica-grafica-e1.cpp
+C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1\ferchus-informatica-grafica-e1.cpp(25,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Pyramid.cpp
+  Generating Code...
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp_glutInitWindowSize referenced in function main
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp_glutInitDisplayMode referenced in function main
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp_glutMainLoop referenced in function main
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp_glutSwapBuffers referenced in function "void __cdecl renderScene(void)" (?renderScene@@YAXXZ)
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp_glutIdleFunc referenced in function main
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp_glutKeyboardFunc referenced in function main
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp_glutSpecialFunc referenced in function main
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp_glutReshapeFunc referenced in function main
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp_glutDisplayFunc referenced in function main
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp_glutSpecialUpFunc referenced in function main
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp_glutGet referenced in function "void __cdecl renderScene(void)" (?renderScene@@YAXXZ)
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp___glutInitWithExit referenced in function glutInit_ATEXIT_HACK
+ferchus-informatica-grafica-e1.obj : error LNK2019: unresolved external symbol __imp___glutCreateWindowWithExit referenced in function glutCreateWindow_ATEXIT_HACK
+C:\GL\freeglut\lib\freeglut.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1\x64\Debug\ferchus-informatica-grafica-e1.exe : fatal error LNK1120: 13 unresolved externals

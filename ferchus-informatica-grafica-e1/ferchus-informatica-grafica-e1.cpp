@@ -8,10 +8,13 @@
 using namespace std;
 
 //Variables  para contar el tiempo
-int t = 1, old_t = 1;
-float dt = 0;
+int _t = 1, _old_t = 1;
+float _dt = 0;
 
-
+//Other Variables
+float slider = 0;
+float amplitude = 10;
+bool goingLeft = false, goingRight = false;
 
 #pragma region OpenGLSetupInputAndStuff
 
@@ -73,15 +76,18 @@ void renderScene(void)
 	glLoadIdentity();
 
 	gluLookAt(
-		0, 0.0f, 10.0f, //pos
+		(sin(slider) * amplitude), 0, (cos(slider) * amplitude), //pos
 		0.0f, 0.0f, 0, //target
 		0.0f, 1.0f, 0.0f); //up Vector
 
 
 
-	t = glutGet(GLUT_ELAPSED_TIME); //Obteniendo el tiempo y el delta
-	dt = (t - old_t) / 1000.0f;
-	old_t = t;
+	_t = glutGet(GLUT_ELAPSED_TIME); //Obteniendo el tiempo y el delta
+	_dt = (_t - _old_t) / 1000.0f;
+	_old_t = _t;
+
+	if (goingLeft) slider -= _dt * 5;
+	if (goingRight) slider += _dt * 5;
 
 	glBegin(GL_QUADS); //unos Cuads chidos
 
@@ -152,16 +158,24 @@ void InputDown(int key, int xx, int yy)
 {
 	switch (key)
 	{
-	case GLUT_KEY_UP://GLUT_KEY_UP:		
+	case GLUT_KEY_RIGHT:
+		goingRight = true;
+		break;
+	case GLUT_KEY_LEFT:
+		goingLeft = true;
 		break;
 	}
 }
 
 void InputUp(int key, int xx, int yy)
 {
-
-	switch (key) {
-	case GLUT_KEY_UP:
+	switch (key)
+	{
+	case GLUT_KEY_RIGHT:
+		goingRight = false;
+		break;
+	case GLUT_KEY_LEFT:
+		goingLeft = false;
 		break;
 	}
 }
