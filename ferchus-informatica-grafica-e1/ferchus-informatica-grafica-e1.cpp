@@ -12,9 +12,12 @@ int _t = 1, _old_t = 1;
 float _dt = 0;
 
 //Other Variables
-float slider = 0;
-float amplitude = 10;
-bool goingLeft = false, goingRight = false;
+float sliderHorizontal = 0;
+float sliderVertical = 0;
+float amplitude = 5;
+float rotationSpeed = 1;
+
+bool goingLeft = false, goingRight = false, goingUp = false, goingDown = false;
 
 #pragma region OpenGLSetupInputAndStuff
 
@@ -76,73 +79,102 @@ void renderScene(void)
 	glLoadIdentity();
 
 	gluLookAt(
-		(sin(slider) * amplitude), 0, (cos(slider) * amplitude), //pos
+		(sin(sliderHorizontal) * amplitude), (sin(sliderVertical) * amplitude), ((cos(sliderVertical) * cos(sliderHorizontal)) * amplitude), //pos
 		0.0f, 0.0f, 0, //target
 		0.0f, 1.0f, 0.0f); //up Vector
 
+	system("cls");
 
+	cout << "sliderHorizontal = " << sliderHorizontal << endl;
+	cout << "Sin(sliderHorizontal) = " << sin(sliderHorizontal) << endl;
+	cout << "Cos(sliderHorizontal) = " << cos(sliderHorizontal) << endl << endl;
+
+	cout << "sliderVertical = " << sliderVertical << endl;
+	cout << "Sin(sliderVertical) = " << sin(sliderVertical) << endl;
+	cout << "Cos(sliderVertical) = " << cos(sliderVertical) << endl << endl;
 
 	_t = glutGet(GLUT_ELAPSED_TIME); //Obteniendo el tiempo y el delta
 	_dt = (_t - _old_t) / 1000.0f;
 	_old_t = _t;
 
-	if (goingLeft) slider -= _dt * 5;
-	if (goingRight) slider += _dt * 5;
+	if (goingLeft) sliderHorizontal -= _dt * rotationSpeed;
+	if (goingRight) sliderHorizontal += _dt * rotationSpeed;
 
-	glBegin(GL_QUADS); //unos Cuads chidos
+	if (goingDown) sliderVertical -= _dt * rotationSpeed;
+	if (goingUp) sliderVertical += _dt * rotationSpeed;
 
-	//glPushMatrix();
+#pragma region Cube
 
-	// Left Top Squares
+	glLineWidth(1.0f);
 
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glRectangle(-5.0f, 3.0f, 0.0f, 0.5f, 0.5f);
+	glBegin(GL_LINE_STRIP); // Purple Top
 
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glRectangle(-4.0f, 3.0f, 0.0f, 0.5f, 0.5f);
+		glColor3f(1, 0, 1);
 
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glRectangle(-3.0f, 3.0f, 0.0f, 0.5f, 0.5f);
-
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glRectangle(-2.0f, 3.0f, 0.0f, 0.5f, 0.5f);
-
-	glEnd();
-
-	// Middle Figure
-
-	glBegin(GL_QUADS);
-
-	glColor3f(0.8f, 0.8f, 0.8f);
-	glRectangle(0.0f, 0.0f, 0.0f, 2.5f, 0.5f);
+		glVertex3f(-1, 1, 1);
+		glVertex3f(1, 1, 1);
+		glVertex3f(1, 1, -1);
+		glVertex3f(-1, 1, -1);
+		glVertex3f(-1, 1, 1);
 
 	glEnd();
 
-	glBegin(GL_TRIANGLES);
+	glBegin(GL_LINE_STRIP); // Green Front
 
-	glColor3f(0.8f, 0.8f, 0.8f);
-	glTriangleIsoceles(-0.85f, -0.25f, 0.0f, 0.8f, -0.4f);
-	glTriangleIsoceles(0.85f, -0.25f, 0.0f, 0.8f, -0.4f);
+		glColor3f(0, 1, 0);
+
+		glVertex3f(-1, 1, 1);
+		glVertex3f(-1, -1, 1);
+		glVertex3f(1, -1, 1);
+		glVertex3f(1, 1, 1);
+	
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); // Red Left
+
+		glColor3f(1, 0, 0);
+
+		glVertex3f(-1, -1, 1);
+		glVertex3f(-1, -1, -1);
+		glVertex3f(-1, 1, -1);
 
 	glEnd();
 
-	// Right Figure
+	glBegin(GL_LINE_STRIP); // Yellow Right
 
-	glBegin(GL_TRIANGLE_FAN);
+		glColor3f(1, 1, 0);
 
-	glColor3f(0.0f, 1.0f, 1.0f);
-
-	glVertex3f(2.0f, -0.25f, 0.0f); // First Point
-
-	glVertex3f(2.0f, 1.0f, 0.0f); // Top Point
-	glVertex3f(2.8f, 0.75f, 0.0f); // Right Top Point
-	glVertex3f(3.2f, -0.25f, 0.0f); // Middle Point
-	glVertex3f(2.8f, -1.25f, 0.0f); // Right Bottom Point
-	glVertex3f(2.0f, -1.5f, 0.0f); // Bottom Point
+		glVertex3f(1, -1, 1);
+		glVertex3f(1, -1, -1);
+		glVertex3f(1, 1, -1);
 
 	glEnd();
 
-	//glPopMatrix();
+	glBegin(GL_LINE_STRIP); // Last Line
+
+		glColor3f(1, 0, 0);
+
+		glVertex3f(-1, -1, -1);
+		glVertex3f(0, -1, -1);
+
+		glColor3f(1, 1, 0);
+
+		glVertex3f(1, -1, -1);
+
+	glEnd();
+
+	glBegin(GL_QUADS); // Base
+
+		glColor3f(0.5f, 0.5f, 0.5f);
+
+		glVertex3f(-1, -1, 1);
+		glVertex3f(1, -1, 1);
+		glVertex3f(1, -1, -1);
+		glVertex3f(-1, -1, -1);
+
+	glEnd();
+
+#pragma endregion
 
 	glutSwapBuffers(); //intercambia los búferes de la ventana actual si tiene doble búfer.
 }
@@ -164,6 +196,12 @@ void InputDown(int key, int xx, int yy)
 	case GLUT_KEY_LEFT:
 		goingLeft = true;
 		break;
+	case GLUT_KEY_UP:
+		goingUp = true;
+		break;
+	case GLUT_KEY_DOWN:
+		goingDown = true;
+		break;
 	}
 }
 
@@ -176,6 +214,12 @@ void InputUp(int key, int xx, int yy)
 		break;
 	case GLUT_KEY_LEFT:
 		goingLeft = false;
+		break;
+	case GLUT_KEY_UP:
+		goingUp = false;
+		break;
+	case GLUT_KEY_DOWN:
+		goingDown = false;
 		break;
 	}
 }

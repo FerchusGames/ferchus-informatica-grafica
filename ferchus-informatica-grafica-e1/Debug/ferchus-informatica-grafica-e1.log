@@ -1,4 +1,4 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (ferchus-informatica-grafica-a1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   ferchus-informatica-grafica-e1.cpp
-C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1\ferchus-informatica-grafica-e1.cpp(28,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1\ferchus-informatica-grafica-e1.cpp(31,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   ferchus-informatica-grafica-e1.vcxproj -> C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1\Debug\ferchus-informatica-grafica-e1.exe
