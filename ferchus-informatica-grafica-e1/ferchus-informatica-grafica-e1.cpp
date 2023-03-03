@@ -3,7 +3,7 @@
 #include <GL\glew.h>
 #include <GL\freeglut.h>
 #include <iostream>
-
+#include "Pyramid.h"
 
 using namespace std;
 
@@ -79,7 +79,7 @@ void renderScene(void)
 	glLoadIdentity();
 
 	gluLookAt(
-		((sin(sliderHorizontal) * cos(sliderVertical)) * amplitude), ((sin(sliderVertical) * cos(sliderHorizontal)) * amplitude), ((cos(sliderVertical) * cos(sliderHorizontal)) * amplitude), //pos
+		(sin(sliderHorizontal) * amplitude), (sin(sliderVertical) * amplitude), ((cos(sliderVertical) * cos(sliderHorizontal)) * amplitude), //pos
 		0.0f, 0.0f, 0, //target
 		0.0f, 1.0f, 0.0f); //up Vector
 
@@ -175,6 +175,8 @@ void renderScene(void)
 	glEnd();
 
 #pragma endregion
+
+
 
 	glutSwapBuffers(); //intercambia los búferes de la ventana actual si tiene doble búfer.
 }
