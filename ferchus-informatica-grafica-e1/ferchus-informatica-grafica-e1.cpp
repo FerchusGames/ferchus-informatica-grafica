@@ -3,7 +3,9 @@
 #include <GL\glew.h>
 #include <GL\freeglut.h>
 #include <iostream>
+#include <ctime>
 #include "Pyramid.h"
+#include "SceneConstants.h"
 
 using namespace std;
 
@@ -12,12 +14,22 @@ int _t = 1, _old_t = 1;
 float _dt = 0;
 
 //Other Variables
-float sliderHorizontal = 0;
-float sliderVertical = 0;
-float amplitude = 5;
-float rotationSpeed = 1;
+float _sliderHorizontal = 0;
+float _sliderVertical = 0;
+float _cameraRotationSpeed = 1;
+float _amplitude = 50;
+float _speed = 5;
+float _rotationSpeed = 30;
 
-bool goingLeft = false, goingRight = false, goingUp = false, goingDown = false;
+bool _goingLeft = false, _goingRight = false, _goingUp = false, _goingDown = false;
+
+const int PYRAMID_AMOUNT = 25;
+
+Pyramid _pyramidArray[PYRAMID_AMOUNT];
+
+void updatePosition(int i);
+
+void checkDirection(int i);
 
 #pragma region OpenGLSetupInputAndStuff
 
@@ -46,28 +58,9 @@ void changeWindowSize(int w, int h)
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void Initialization() {
-	cout << "Codigo inicial aqui" << endl;
-}
-
-void glRectangle(float xPosition, float yPosition, float zPosition, float width, float height)
+void Initialization() // Start
 {
-	float halfWidth = width / 2;
-	float halfHeight = height / 2;
-
-	glVertex3f(xPosition - halfWidth, yPosition - halfHeight, zPosition);
-	glVertex3f(xPosition - halfWidth, yPosition + halfHeight, zPosition);
-	glVertex3f(xPosition + halfWidth, yPosition + halfHeight, zPosition);
-	glVertex3f(xPosition + halfWidth, yPosition - halfHeight, zPosition);
-}
-
-void glTriangleIsoceles(float baseXPosition, float baseYPosition, float baseZPosition, float width, float height)
-{
-	float halfWidth = width / 2;
-
-	glVertex3f(baseXPosition - halfWidth, baseYPosition, baseZPosition);
-	glVertex3f(baseXPosition + halfWidth, baseYPosition, baseZPosition);
-	glVertex3f(baseXPosition, baseYPosition + height, baseZPosition);
+	
 }
 
 void renderScene(void)
@@ -79,106 +72,142 @@ void renderScene(void)
 	glLoadIdentity();
 
 	gluLookAt(
-		(sin(sliderHorizontal) * amplitude), (sin(sliderVertical) * amplitude), ((cos(sliderVertical) * cos(sliderHorizontal)) * amplitude), //pos
+		(sin(_sliderHorizontal) * _amplitude), (sin(_sliderVertical) * _amplitude), ((cos(_sliderVertical) * cos(_sliderHorizontal)) * _amplitude), //pos
 		0.0f, 0.0f, 0, //target
 		0.0f, 1.0f, 0.0f); //up Vector
 
-	system("cls");
+	for (int i = 0; i < PYRAMID_AMOUNT; i++)
+	{
+		glPushMatrix();	
 
-	cout << "sliderHorizontal = " << sliderHorizontal << endl;
-	cout << "Sin(sliderHorizontal) = " << sin(sliderHorizontal) << endl;
-	cout << "Cos(sliderHorizontal) = " << cos(sliderHorizontal) << endl << endl;
+			updatePosition(i);
+			checkDirection(i);
 
-	cout << "sliderVertical = " << sliderVertical << endl;
-	cout << "Sin(sliderVertical) = " << sin(sliderVertical) << endl;
-	cout << "Cos(sliderVertical) = " << cos(sliderVertical) << endl << endl;
+			glTranslatef(
+				_pyramidArray[i]._positionX,
+				_pyramidArray[i]._positionY, 
+				_pyramidArray[i]._positionZ
+			);
+			
+			glRotatef(
+				_pyramidArray[i]._initialRotation + _rotationSpeed * _t / 1000,
+				_pyramidArray[i]._rotationX,
+				_pyramidArray[i]._rotationY,
+				_pyramidArray[i]._rotationZ
+			);
+			
+			glScalef(_pyramidArray[i]._scale, _pyramidArray[i]._scale, _pyramidArray[i]._scale);
+			
+			_pyramidArray[i].drawPyramid();
+		
+		glPopMatrix();
+	}
 
 	_t = glutGet(GLUT_ELAPSED_TIME); //Obteniendo el tiempo y el delta
 	_dt = (_t - _old_t) / 1000.0f;
 	_old_t = _t;
 
-	if (goingLeft) sliderHorizontal -= _dt * rotationSpeed;
-	if (goingRight) sliderHorizontal += _dt * rotationSpeed;
+	if (_goingLeft) _sliderHorizontal -= _dt * _cameraRotationSpeed;
+	if (_goingRight) _sliderHorizontal += _dt * _cameraRotationSpeed;
 
-	if (goingDown) sliderVertical -= _dt * rotationSpeed;
-	if (goingUp) sliderVertical += _dt * rotationSpeed;
+	if (_goingDown) _sliderVertical -= _dt * _cameraRotationSpeed;
+	if (_goingUp) _sliderVertical += _dt * _cameraRotationSpeed;
 
 #pragma region Cube
 
 	glLineWidth(1.0f);
+	glPushMatrix();
 
-	glBegin(GL_LINE_STRIP); // Purple Top
+		glScalef(CUBE_SCALE, CUBE_SCALE, CUBE_SCALE);
 
-		glColor3f(1, 0, 1);
+		glBegin(GL_LINE_STRIP); // Purple Top
 
-		glVertex3f(-1, 1, 1);
-		glVertex3f(1, 1, 1);
-		glVertex3f(1, 1, -1);
-		glVertex3f(-1, 1, -1);
-		glVertex3f(-1, 1, 1);
+			glColor3f(1, 0, 1);
 
-	glEnd();
+			glVertex3f(-1, 1, 1);
+			glVertex3f(1, 1, 1);
+			glVertex3f(1, 1, -1);
+			glVertex3f(-1, 1, -1);
+			glVertex3f(-1, 1, 1);
 
-	glBegin(GL_LINE_STRIP); // Green Front
+		glEnd();
 
-		glColor3f(0, 1, 0);
+		glBegin(GL_LINE_STRIP); // Green Front
 
-		glVertex3f(-1, 1, 1);
-		glVertex3f(-1, -1, 1);
-		glVertex3f(1, -1, 1);
-		glVertex3f(1, 1, 1);
+			glColor3f(0, 1, 0);
+
+			glVertex3f(-1, 1, 1);
+			glVertex3f(-1, -1, 1);
+			glVertex3f(1, -1, 1);
+			glVertex3f(1, 1, 1);
 	
-	glEnd();
+		glEnd();
 
-	glBegin(GL_LINE_STRIP); // Red Left
+		glBegin(GL_LINE_STRIP); // Red Left
 
-		glColor3f(1, 0, 0);
+			glColor3f(1, 0, 0);
 
-		glVertex3f(-1, -1, 1);
-		glVertex3f(-1, -1, -1);
-		glVertex3f(-1, 1, -1);
+			glVertex3f(-1, -1, 1);
+			glVertex3f(-1, -1, -1);
+			glVertex3f(-1, 1, -1);
 
-	glEnd();
+		glEnd();
 
-	glBegin(GL_LINE_STRIP); // Yellow Right
+		glBegin(GL_LINE_STRIP); // Yellow Right
 
-		glColor3f(1, 1, 0);
+			glColor3f(1, 1, 0);
 
-		glVertex3f(1, -1, 1);
-		glVertex3f(1, -1, -1);
-		glVertex3f(1, 1, -1);
+			glVertex3f(1, -1, 1);
+			glVertex3f(1, -1, -1);
+			glVertex3f(1, 1, -1);
 
-	glEnd();
+		glEnd();
 
-	glBegin(GL_LINE_STRIP); // Last Line
+		glBegin(GL_LINE_STRIP); // Last Line
 
-		glColor3f(1, 0, 0);
+			glColor3f(1, 0, 0);
 
-		glVertex3f(-1, -1, -1);
-		glVertex3f(0, -1, -1);
+			glVertex3f(-1, -1, -1);
+			glVertex3f(0, -1, -1);
 
-		glColor3f(1, 1, 0);
+			glColor3f(1, 1, 0);
 
-		glVertex3f(1, -1, -1);
+			glVertex3f(1, -1, -1);
 
-	glEnd();
+		glEnd();
 
-	glBegin(GL_QUADS); // Base
+		glBegin(GL_QUADS); // Base
 
-		glColor3f(0.5f, 0.5f, 0.5f);
+			glColor3f(0.5f, 0.5f, 0.5f);
 
-		glVertex3f(-1, -1, 1);
-		glVertex3f(1, -1, 1);
-		glVertex3f(1, -1, -1);
-		glVertex3f(-1, -1, -1);
+			glVertex3f(-1, -1, 1);
+			glVertex3f(1, -1, 1);
+			glVertex3f(1, -1, -1);
+			glVertex3f(-1, -1, -1);
 
-	glEnd();
+		glEnd();
+	glPopMatrix();
 
 #pragma endregion
 
-
-
 	glutSwapBuffers(); //intercambia los búferes de la ventana actual si tiene doble búfer.
+}
+
+void updatePosition(int i)
+{
+	_pyramidArray[i]._positionX = _pyramidArray[i]._positionX  + (_dt * _pyramidArray[i]._directionX * _speed);
+	_pyramidArray[i]._positionY = _pyramidArray[i]._positionY  + (_dt * _pyramidArray[i]._directionY * _speed);
+	_pyramidArray[i]._positionZ = _pyramidArray[i]._positionZ  + (_dt * _pyramidArray[i]._directionZ * _speed);
+}
+
+void checkDirection(int i)
+{
+	if ((abs(_pyramidArray[i]._positionX) + _pyramidArray[i]._scale) > CUBE_HITBOX || 
+		(abs(_pyramidArray[i]._positionY) + _pyramidArray[i]._scale) > CUBE_HITBOX || 
+		(abs(_pyramidArray[i]._positionZ) + _pyramidArray[i]._scale) > CUBE_HITBOX)
+	{
+		_pyramidArray[i].changeDirection();
+	}
 }
 
 void processNormalKeys(unsigned char key, int x, int y)
@@ -193,16 +222,16 @@ void InputDown(int key, int xx, int yy)
 	switch (key)
 	{
 	case GLUT_KEY_RIGHT:
-		goingRight = true;
+		_goingRight = true;
 		break;
 	case GLUT_KEY_LEFT:
-		goingLeft = true;
+		_goingLeft = true;
 		break;
 	case GLUT_KEY_UP:
-		goingUp = true;
+		_goingUp = true;
 		break;
 	case GLUT_KEY_DOWN:
-		goingDown = true;
+		_goingDown = true;
 		break;
 	}
 }
@@ -212,22 +241,24 @@ void InputUp(int key, int xx, int yy)
 	switch (key)
 	{
 	case GLUT_KEY_RIGHT:
-		goingRight = false;
+		_goingRight = false;
 		break;
 	case GLUT_KEY_LEFT:
-		goingLeft = false;
+		_goingLeft = false;
 		break;
 	case GLUT_KEY_UP:
-		goingUp = false;
+		_goingUp = false;
 		break;
 	case GLUT_KEY_DOWN:
-		goingDown = false;
+		_goingDown = false;
 		break;
 	}
 }
 #pragma endregion
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
+	srand(clock());
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
