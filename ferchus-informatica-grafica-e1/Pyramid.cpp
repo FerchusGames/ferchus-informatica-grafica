@@ -109,10 +109,10 @@ void Pyramid::drawPyramid()
 
 		glColor3f(_colorR, _colorG, _colorB);
 
-		glVertex3f(-1, 0, 1);
-		glVertex3f(1, 0, 1);
-		glVertex3f(1, 0, -1);
-		glVertex3f(-1, 0, -1);
+		glVertex3f(-1, -HALF_HEIGHT, 1);
+		glVertex3f(1, -HALF_HEIGHT, 1);
+		glVertex3f(1, -HALF_HEIGHT, -1);
+		glVertex3f(-1, -HALF_HEIGHT, -1);
 
 	glEnd();
 
@@ -126,9 +126,9 @@ void Pyramid::drawPyramid()
 
 		glColor3f(newColorR, newColorG, newColorB);
 
-		glVertex3f(0, HEIGHT, 0);
-		glVertex3f(-1, 0, 1);
-		glVertex3f(1, 0, 1);
+		glVertex3f(0, HALF_HEIGHT, 0);
+		glVertex3f(-1, -HALF_HEIGHT, 1);
+		glVertex3f(1, -HALF_HEIGHT, 1);
 
 		changeTone(&newColorR);
 		changeTone(&newColorG);
@@ -136,9 +136,9 @@ void Pyramid::drawPyramid()
 
 		glColor3f(newColorR, newColorG, newColorB);
 
-		glVertex3f(0, HEIGHT, 0);
-		glVertex3f(1, 0, 1);
-		glVertex3f(1, 0, -1);
+		glVertex3f(0, HALF_HEIGHT, 0);
+		glVertex3f(1, -HALF_HEIGHT, 1);
+		glVertex3f(1, -HALF_HEIGHT, -1);
 
 		changeTone(&newColorR);
 		changeTone(&newColorG);
@@ -146,9 +146,9 @@ void Pyramid::drawPyramid()
 
 		glColor3f(newColorR, newColorG, newColorB);
 
-		glVertex3f(0, HEIGHT, 0);
-		glVertex3f(1, 0, -1);
-		glVertex3f(-1, 0, -1);
+		glVertex3f(0, HALF_HEIGHT, 0);
+		glVertex3f(1, -HALF_HEIGHT, -1);
+		glVertex3f(-1, -HALF_HEIGHT, -1);
 
 		changeTone(&newColorR);
 		changeTone(&newColorG);
@@ -156,9 +156,9 @@ void Pyramid::drawPyramid()
 
 		glColor3f(newColorR, newColorG, newColorB);
 
-		glVertex3f(0, HEIGHT, 0);
-		glVertex3f(-1, 0, -1);
-		glVertex3f(-1, 0, 1);
+		glVertex3f(0, HALF_HEIGHT, 0);
+		glVertex3f(-1, -HALF_HEIGHT, -1);
+		glVertex3f(-1, -HALF_HEIGHT, 1);
 
 	glEnd();
 }

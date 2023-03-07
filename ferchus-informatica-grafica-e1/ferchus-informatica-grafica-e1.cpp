@@ -19,17 +19,19 @@ float _sliderVertical = 0;
 float _cameraRotationSpeed = 1;
 float _amplitude = 50;
 float _speed = 5;
-float _rotationSpeed = 30;
+float _rotationSpeed = 120;
+
+int _directionChangeCount = 0;
 
 bool _goingLeft = false, _goingRight = false, _goingUp = false, _goingDown = false;
 
-const int PYRAMID_AMOUNT = 25;
+const int PYRAMID_AMOUNT = 10;
 
 Pyramid _pyramidArray[PYRAMID_AMOUNT];
 
 void updatePosition(int i);
 
-void checkDirection(int i);
+bool newPositionIsInsideBox(int i);
 
 #pragma region OpenGLSetupInputAndStuff
 
@@ -81,7 +83,6 @@ void renderScene(void)
 		glPushMatrix();	
 
 			updatePosition(i);
-			checkDirection(i);
 
 			glTranslatef(
 				_pyramidArray[i]._positionX,
@@ -195,19 +196,31 @@ void renderScene(void)
 
 void updatePosition(int i)
 {
+	while (!newPositionIsInsideBox(i))
+	{
+		_pyramidArray[i].changeDirection();
+		_directionChangeCount++;
+
+		system("cls");
+
+		cout << "Direction Change Count: " << _directionChangeCount;
+	}
+
 	_pyramidArray[i]._positionX = _pyramidArray[i]._positionX  + (_dt * _pyramidArray[i]._directionX * _speed);
 	_pyramidArray[i]._positionY = _pyramidArray[i]._positionY  + (_dt * _pyramidArray[i]._directionY * _speed);
 	_pyramidArray[i]._positionZ = _pyramidArray[i]._positionZ  + (_dt * _pyramidArray[i]._directionZ * _speed);
 }
 
-void checkDirection(int i)
+bool newPositionIsInsideBox(int i)
 {
-	if ((abs(_pyramidArray[i]._positionX) + _pyramidArray[i]._scale) > CUBE_HITBOX || 
-		(abs(_pyramidArray[i]._positionY) + _pyramidArray[i]._scale) > CUBE_HITBOX || 
-		(abs(_pyramidArray[i]._positionZ) + _pyramidArray[i]._scale) > CUBE_HITBOX)
+	if (abs(_pyramidArray[i]._positionX + (_dt * _pyramidArray[i]._directionX) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)) &&
+		abs(_pyramidArray[i]._positionY + (_dt * _pyramidArray[i]._directionY) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)) &&
+		abs(_pyramidArray[i]._positionZ + (_dt * _pyramidArray[i]._directionZ) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)))
 	{
-		_pyramidArray[i].changeDirection();
+		return true;
 	}
+
+	else return false;
 }
 
 void processNormalKeys(unsigned char key, int x, int y)
