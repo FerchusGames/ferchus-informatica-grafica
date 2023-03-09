@@ -13,23 +13,24 @@ using namespace std;
 int _t = 1, _old_t = 1;
 float _dt = 0;
 
-//Other Variables
+// Camera Rotation
 float _sliderHorizontal = 0;
 float _sliderVertical = 0;
-float _cameraRotationSpeed = 1;
+float _cameraRotationSpeed = 3;
 float _amplitude = 50;
-float _speed = 5;
-float _rotationSpeed = 30;
 
 bool _goingLeft = false, _goingRight = false, _goingUp = false, _goingDown = false;
 
-const int PYRAMID_AMOUNT = 25;
+//Pyramid Parameters
 
-Pyramid _pyramidArray[PYRAMID_AMOUNT];
+float _speed = 5;
+float _rotationSpeed = 120;
+const int PYRAMID_AMOUNT = 10000;
 
 void updatePosition(int i);
+void checkNewPosition(int i);
 
-void checkDirection(int i);
+Pyramid _pyramidArray[PYRAMID_AMOUNT];
 
 #pragma region OpenGLSetupInputAndStuff
 
@@ -60,7 +61,7 @@ void changeWindowSize(int w, int h)
 
 void Initialization() // Start
 {
-	
+	glutFullScreen();
 }
 
 void renderScene(void)
@@ -80,8 +81,8 @@ void renderScene(void)
 	{
 		glPushMatrix();	
 
+			checkNewPosition(i);
 			updatePosition(i);
-			checkDirection(i);
 
 			glTranslatef(
 				_pyramidArray[i]._positionX,
@@ -200,13 +201,21 @@ void updatePosition(int i)
 	_pyramidArray[i]._positionZ = _pyramidArray[i]._positionZ  + (_dt * _pyramidArray[i]._directionZ * _speed);
 }
 
-void checkDirection(int i)
+void checkNewPosition(int i)
 {
-	if ((abs(_pyramidArray[i]._positionX) + _pyramidArray[i]._scale) > CUBE_HITBOX || 
-		(abs(_pyramidArray[i]._positionY) + _pyramidArray[i]._scale) > CUBE_HITBOX || 
-		(abs(_pyramidArray[i]._positionZ) + _pyramidArray[i]._scale) > CUBE_HITBOX)
+	if (abs(_pyramidArray[i]._positionX + (_dt * _pyramidArray[i]._directionX) * _speed) > (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)))
 	{
-		_pyramidArray[i].changeDirection();
+		_pyramidArray[i]._directionX *= -1;
+	}
+
+	if (abs(_pyramidArray[i]._positionY + (_dt * _pyramidArray[i]._directionY) * _speed) > (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)))
+	{
+		_pyramidArray[i]._directionY *= -1;
+	}
+
+	if (abs(_pyramidArray[i]._positionZ + (_dt * _pyramidArray[i]._directionZ) * _speed) > (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)))
+	{
+		_pyramidArray[i]._directionZ *= -1;
 	}
 }
 

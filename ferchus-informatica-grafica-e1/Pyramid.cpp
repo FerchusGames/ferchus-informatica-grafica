@@ -33,15 +33,6 @@ void Pyramid::setValues()
 	_rotationAxis = rand() % 3;
 }
 
-void Pyramid::changeDirection()
-{
-	_directionX = randomPercentage() * randomSign();
-	_directionY = randomPercentage() * randomSign();
-	_directionZ = randomPercentage() * randomSign();
-
-	normalizeVector(_directionX, _directionY, _directionZ);
-}
-
 void Pyramid::normalizeVector(float& x, float& y, float& z)
 {
 	// Calculate magnitude
@@ -109,10 +100,10 @@ void Pyramid::drawPyramid()
 
 		glColor3f(_colorR, _colorG, _colorB);
 
-		glVertex3f(-1, 0, 1);
-		glVertex3f(1, 0, 1);
-		glVertex3f(1, 0, -1);
-		glVertex3f(-1, 0, -1);
+		glVertex3f(-1, -HALF_HEIGHT, 1);
+		glVertex3f(1, -HALF_HEIGHT, 1);
+		glVertex3f(1, -HALF_HEIGHT, -1);
+		glVertex3f(-1, -HALF_HEIGHT, -1);
 
 	glEnd();
 
@@ -126,9 +117,9 @@ void Pyramid::drawPyramid()
 
 		glColor3f(newColorR, newColorG, newColorB);
 
-		glVertex3f(0, HEIGHT, 0);
-		glVertex3f(-1, 0, 1);
-		glVertex3f(1, 0, 1);
+		glVertex3f(0, HALF_HEIGHT, 0);
+		glVertex3f(-1, -HALF_HEIGHT, 1);
+		glVertex3f(1, -HALF_HEIGHT, 1);
 
 		changeTone(&newColorR);
 		changeTone(&newColorG);
@@ -136,9 +127,9 @@ void Pyramid::drawPyramid()
 
 		glColor3f(newColorR, newColorG, newColorB);
 
-		glVertex3f(0, HEIGHT, 0);
-		glVertex3f(1, 0, 1);
-		glVertex3f(1, 0, -1);
+		glVertex3f(0, HALF_HEIGHT, 0);
+		glVertex3f(1, -HALF_HEIGHT, 1);
+		glVertex3f(1, -HALF_HEIGHT, -1);
 
 		changeTone(&newColorR);
 		changeTone(&newColorG);
@@ -146,9 +137,9 @@ void Pyramid::drawPyramid()
 
 		glColor3f(newColorR, newColorG, newColorB);
 
-		glVertex3f(0, HEIGHT, 0);
-		glVertex3f(1, 0, -1);
-		glVertex3f(-1, 0, -1);
+		glVertex3f(0, HALF_HEIGHT, 0);
+		glVertex3f(1, -HALF_HEIGHT, -1);
+		glVertex3f(-1, -HALF_HEIGHT, -1);
 
 		changeTone(&newColorR);
 		changeTone(&newColorG);
@@ -156,9 +147,9 @@ void Pyramid::drawPyramid()
 
 		glColor3f(newColorR, newColorG, newColorB);
 
-		glVertex3f(0, HEIGHT, 0);
-		glVertex3f(-1, 0, -1);
-		glVertex3f(-1, 0, 1);
+		glVertex3f(0, HALF_HEIGHT, 0);
+		glVertex3f(-1, -HALF_HEIGHT, -1);
+		glVertex3f(-1, -HALF_HEIGHT, 1);
 
 	glEnd();
 }

@@ -21,6 +21,7 @@ private:
 	float _colorChange = 1.1;
 	
 	const float HEIGHT = 1.8;
+	const float HALF_HEIGHT = HEIGHT / 2;
 	const float MAX_SCALE = 1.5;
 
 	float randomPercentage();
@@ -36,7 +37,6 @@ public:
 	Pyramid();
 
 	void drawPyramid();
-	void changeDirection();
 
 	float _scale;
 	float _initialRotation;
