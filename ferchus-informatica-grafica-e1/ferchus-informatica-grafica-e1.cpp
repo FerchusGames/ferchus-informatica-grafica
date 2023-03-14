@@ -13,24 +13,25 @@ using namespace std;
 int _t = 1, _old_t = 1;
 float _dt = 0;
 
-// Camera Rotation
+//Other Variables
 float _sliderHorizontal = 0;
 float _sliderVertical = 0;
-float _cameraRotationSpeed = 3;
+float _cameraRotationSpeed = 1;
 float _amplitude = 50;
+float _speed = 5;
+float _rotationSpeed = 120;
+
+int _directionChangeCount = 0;
 
 bool _goingLeft = false, _goingRight = false, _goingUp = false, _goingDown = false;
 
-//Pyramid Parameters
-
-float _speed = 5;
-float _rotationSpeed = 120;
-const int PYRAMID_AMOUNT = 10000;
-
-void updatePosition(int i);
-void checkNewPosition(int i);
+const int PYRAMID_AMOUNT = 10;
 
 Pyramid _pyramidArray[PYRAMID_AMOUNT];
+
+void updatePosition(int i);
+
+bool newPositionIsInsideBox(int i);
 
 #pragma region OpenGLSetupInputAndStuff
 
@@ -61,7 +62,7 @@ void changeWindowSize(int w, int h)
 
 void Initialization() // Start
 {
-	glutFullScreen();
+	
 }
 
 void renderScene(void)
@@ -81,7 +82,6 @@ void renderScene(void)
 	{
 		glPushMatrix();	
 
-			checkNewPosition(i);
 			updatePosition(i);
 
 			glTranslatef(
@@ -196,27 +196,31 @@ void renderScene(void)
 
 void updatePosition(int i)
 {
+	while (!newPositionIsInsideBox(i))
+	{
+		_pyramidArray[i].changeDirection();
+		_directionChangeCount++;
+
+		system("cls");
+
+		cout << "Direction Change Count: " << _directionChangeCount;
+	}
+
 	_pyramidArray[i]._positionX = _pyramidArray[i]._positionX  + (_dt * _pyramidArray[i]._directionX * _speed);
 	_pyramidArray[i]._positionY = _pyramidArray[i]._positionY  + (_dt * _pyramidArray[i]._directionY * _speed);
 	_pyramidArray[i]._positionZ = _pyramidArray[i]._positionZ  + (_dt * _pyramidArray[i]._directionZ * _speed);
 }
 
-void checkNewPosition(int i)
+bool newPositionIsInsideBox(int i)
 {
-	if (abs(_pyramidArray[i]._positionX + (_dt * _pyramidArray[i]._directionX) * _speed) > (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)))
+	if (abs(_pyramidArray[i]._positionX + (_dt * _pyramidArray[i]._directionX) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)) &&
+		abs(_pyramidArray[i]._positionY + (_dt * _pyramidArray[i]._directionY) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)) &&
+		abs(_pyramidArray[i]._positionZ + (_dt * _pyramidArray[i]._directionZ) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)))
 	{
-		_pyramidArray[i]._directionX *= -1;
+		return true;
 	}
 
-	if (abs(_pyramidArray[i]._positionY + (_dt * _pyramidArray[i]._directionY) * _speed) > (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)))
-	{
-		_pyramidArray[i]._directionY *= -1;
-	}
-
-	if (abs(_pyramidArray[i]._positionZ + (_dt * _pyramidArray[i]._directionZ) * _speed) > (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)))
-	{
-		_pyramidArray[i]._directionZ *= -1;
-	}
+	else return false;
 }
 
 void processNormalKeys(unsigned char key, int x, int y)
