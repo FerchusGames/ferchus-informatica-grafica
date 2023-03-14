@@ -1,0 +1,6 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (ferchus-informatica-grafica-a1.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+  ferchus-informatica-grafica-a5-circulos.cpp
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a5-circulos\ferchus-informatica-grafica-a5-circulos.cpp(16,25): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a5-circulos\ferchus-informatica-grafica-a5-circulos.cpp(46,14): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a5-circulos\ferchus-informatica-grafica-a5-circulos.cpp(103,13): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  ferchus-informatica-grafica-a1.vcxproj -> C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a5-circulos\Debug\ferchus-informatica-grafica-a5-circulos.exe
