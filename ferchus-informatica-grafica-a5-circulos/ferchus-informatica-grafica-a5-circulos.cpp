@@ -18,7 +18,7 @@ const float TAU = PI * 2;
 
 // Variables
 
-float _timeToComplete1 = 3600;
+float _timeToComplete1 = 1440;
 float _timeToComplete2 = 60;
 float _timeToComplete3 = 1;
 
