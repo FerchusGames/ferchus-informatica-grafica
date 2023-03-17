@@ -11,8 +11,6 @@ class Cube
 {
 	private:
 
-		const unsigned char _colorChange = 10;
-
 		float _scale = 1;
 		float _speed = 1;
 		Vector3 _position;
@@ -23,6 +21,6 @@ class Cube
 
 		void SetPosition(Vector3 position);
 
-		void DrawCube();
+		void Draw();
 };
 

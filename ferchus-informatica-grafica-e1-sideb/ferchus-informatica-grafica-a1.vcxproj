@@ -135,6 +135,7 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="ferchus-informatica-grafica-e1-sideb.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>

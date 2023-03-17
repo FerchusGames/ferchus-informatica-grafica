@@ -13,7 +13,10 @@ using namespace std;
 int t = 1, old_t = 1;
 float dt = 0;
 
+const int COLUMNS = 2;
+const int ROWS = 2;
 
+Cube _cubeGrid[COLUMNS][ROWS];
 
 #pragma region OpenGLSetupInputAndStuff
 
@@ -79,13 +82,9 @@ void renderScene(void)
 		0.0f, 0.0f, 0, //target
 		0.0f, 1.0f, 0.0f); //up Vector
 
-
-
 	t = glutGet(GLUT_ELAPSED_TIME); //Obteniendo el tiempo y el delta
 	dt = (t - old_t) / 1000.0f;
 	old_t = t;
-
-	
 
 	glutSwapBuffers(); //intercambia los búferes de la ventana actual si tiene doble búfer.
 }
@@ -116,9 +115,17 @@ void InputUp(int key, int xx, int yy)
 }
 #pragma endregion
 
-int main(int argc, char* argv[]) {
-
+int main(int argc, char* argv[]) 
+{
 	srand(time(NULL));
+
+	for (int i = 0; i < COLUMNS; i++)
+	{
+		for (int j = 0; j < ROWS; i++)
+		{
+			_cubeGrid[i][j].Cube::Cube();
+		}
+	}
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);

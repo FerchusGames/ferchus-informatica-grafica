@@ -2,12 +2,6 @@
 
 #include <cstdlib>
 
-unsigned char RandomUChar()
-{
-	return rand() % 256;
-}
+unsigned char RandomUChar();
 
-float RandomFloat()
-{
-	return static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
-}
+float RandomFloat();
