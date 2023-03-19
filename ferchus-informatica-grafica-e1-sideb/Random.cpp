@@ -5,7 +5,7 @@ unsigned char RandomUChar()
 	return rand() % 256;
 }
 
-float RandomFloat()
+float RandomPercentage()
 {
 	return static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
 }

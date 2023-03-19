@@ -11,7 +11,7 @@ using namespace std;
 
 //Variables  para contar el tiempo
 int _t = 1, _old_t = 1;
-float _dt = 0;
+float _deltaTime = 0;
 
 //Other Variables
 float _sliderHorizontal = 0;
@@ -105,14 +105,14 @@ void renderScene(void)
 	}
 
 	_t = glutGet(GLUT_ELAPSED_TIME); //Obteniendo el tiempo y el delta
-	_dt = (_t - _old_t) / 1000.0f;
+	_deltaTime = (_t - _old_t) / 1000.0f;
 	_old_t = _t;
 
-	if (_goingLeft) _sliderHorizontal -= _dt * _cameraRotationSpeed;
-	if (_goingRight) _sliderHorizontal += _dt * _cameraRotationSpeed;
+	if (_goingLeft) _sliderHorizontal -= _deltaTime * _cameraRotationSpeed;
+	if (_goingRight) _sliderHorizontal += _deltaTime * _cameraRotationSpeed;
 
-	if (_goingDown) _sliderVertical -= _dt * _cameraRotationSpeed;
-	if (_goingUp) _sliderVertical += _dt * _cameraRotationSpeed;
+	if (_goingDown) _sliderVertical -= _deltaTime * _cameraRotationSpeed;
+	if (_goingUp) _sliderVertical += _deltaTime * _cameraRotationSpeed;
 
 #pragma region Cube
 
@@ -206,16 +206,16 @@ void updatePosition(int i)
 		cout << "Direction Change Count: " << _directionChangeCount;
 	}
 
-	_pyramidArray[i]._positionX = _pyramidArray[i]._positionX  + (_dt * _pyramidArray[i]._directionX * _speed);
-	_pyramidArray[i]._positionY = _pyramidArray[i]._positionY  + (_dt * _pyramidArray[i]._directionY * _speed);
-	_pyramidArray[i]._positionZ = _pyramidArray[i]._positionZ  + (_dt * _pyramidArray[i]._directionZ * _speed);
+	_pyramidArray[i]._positionX = _pyramidArray[i]._positionX  + (_deltaTime * _pyramidArray[i]._directionX * _speed);
+	_pyramidArray[i]._positionY = _pyramidArray[i]._positionY  + (_deltaTime * _pyramidArray[i]._directionY * _speed);
+	_pyramidArray[i]._positionZ = _pyramidArray[i]._positionZ  + (_deltaTime * _pyramidArray[i]._directionZ * _speed);
 }
 
 bool newPositionIsInsideBox(int i)
 {
-	if (abs(_pyramidArray[i]._positionX + (_dt * _pyramidArray[i]._directionX) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)) &&
-		abs(_pyramidArray[i]._positionY + (_dt * _pyramidArray[i]._directionY) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)) &&
-		abs(_pyramidArray[i]._positionZ + (_dt * _pyramidArray[i]._directionZ) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)))
+	if (abs(_pyramidArray[i]._positionX + (_deltaTime * _pyramidArray[i]._directionX) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)) &&
+		abs(_pyramidArray[i]._positionY + (_deltaTime * _pyramidArray[i]._directionY) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)) &&
+		abs(_pyramidArray[i]._positionZ + (_deltaTime * _pyramidArray[i]._directionZ) * _speed) < (CUBE_HITBOX - (_pyramidArray[i]._scale / 2)))
 	{
 		return true;
 	}

@@ -10,13 +10,24 @@
 using namespace std;
 
 //Variables  para contar el tiempo
-int t = 1, old_t = 1;
-float dt = 0;
+int _t = 1, _old_t = 1;
+float _deltaTime = 0;
 
-const int COLUMNS = 2;
-const int ROWS = 2;
+const int COLUMNS = 100;
+const int ROWS = 100;
+
+float _spaceBetweenCubes = 1.2;
 
 Cube _cubeGrid[COLUMNS][ROWS];
+
+//Other Variables
+float _sliderHorizontal = 0;
+float _sliderVertical = 0;
+
+float _cameraRotationSpeed = 5;
+float _amplitude = 2.2;
+
+bool _goingLeft = false, _goingRight = false;
 
 #pragma region OpenGLSetupInputAndStuff
 
@@ -39,7 +50,7 @@ void changeWindowSize(int w, int h)
 	glViewport(0, 0, w, h);
 
 	// da la perspectiva correcta, fov, ratio, nearClip, farClip
-	gluPerspective(45.0f, ratio, 0.1f, 100.0f);
+	gluPerspective(45.0f, ratio, 0.1f, 10000.0f);
 
 	// usa la matriz de modelos the Modelview
 	glMatrixMode(GL_MODELVIEW);
@@ -47,26 +58,6 @@ void changeWindowSize(int w, int h)
 
 void Initialization() {
 	cout << "Codigo inicial aqui" << endl;
-}
-
-void glRectangle(float xPosition, float yPosition, float zPosition, float width, float height)
-{
-	float halfWidth = width / 2;
-	float halfHeight = height / 2;
-
-	glVertex3f(xPosition - halfWidth, yPosition - halfHeight, zPosition);
-	glVertex3f(xPosition - halfWidth, yPosition + halfHeight, zPosition);
-	glVertex3f(xPosition + halfWidth, yPosition + halfHeight, zPosition);
-	glVertex3f(xPosition + halfWidth, yPosition - halfHeight, zPosition);
-}
-
-void glTriangleIsoceles(float baseXPosition, float baseYPosition, float baseZPosition, float width, float height)
-{
-	float halfWidth = width / 2;
-
-	glVertex3f(baseXPosition - halfWidth, baseYPosition, baseZPosition);
-	glVertex3f(baseXPosition + halfWidth, baseYPosition, baseZPosition);
-	glVertex3f(baseXPosition, baseYPosition + height, baseZPosition);
 }
 
 void renderScene(void)
@@ -77,14 +68,25 @@ void renderScene(void)
 	// Reinicia las trasnformaciones
 	glLoadIdentity();
 
+	if (_goingLeft) _sliderHorizontal -= _deltaTime * _cameraRotationSpeed;
+	if (_goingRight) _sliderHorizontal += _deltaTime * _cameraRotationSpeed;
+
 	gluLookAt(
-		0, 0.0f, 10.0f, //pos
+		sin(_sliderHorizontal) * _amplitude, 0, cos(_sliderHorizontal) * _amplitude, //pos
 		0.0f, 0.0f, 0, //target
 		0.0f, 1.0f, 0.0f); //up Vector
 
-	t = glutGet(GLUT_ELAPSED_TIME); //Obteniendo el tiempo y el delta
-	dt = (t - old_t) / 1000.0f;
-	old_t = t;
+	_t = glutGet(GLUT_ELAPSED_TIME); //Obteniendo el tiempo y el delta
+	_deltaTime = (_t - _old_t) / 1000.0f;
+	_old_t = _t;
+
+	for (int i = 0; i < COLUMNS; i++)
+	{
+		for (int j = 0; j < ROWS; j++)
+		{
+			_cubeGrid[i][j].Draw(_deltaTime);
+		}
+	}
 
 	glutSwapBuffers(); //intercambia los búferes de la ventana actual si tiene doble búfer.
 }
@@ -100,16 +102,24 @@ void InputDown(int key, int xx, int yy)
 {
 	switch (key)
 	{
-	case GLUT_KEY_UP://GLUT_KEY_UP:		
+	case GLUT_KEY_RIGHT:
+		_goingRight = true;
+		break;
+	case GLUT_KEY_LEFT:
+		_goingLeft = true;
 		break;
 	}
 }
 
 void InputUp(int key, int xx, int yy)
 {
-
-	switch (key) {
-	case GLUT_KEY_UP:
+	switch (key)
+	{
+	case GLUT_KEY_RIGHT:
+		_goingRight = false;
+		break;
+	case GLUT_KEY_LEFT:
+		_goingLeft = false;
 		break;
 	}
 }
@@ -119,11 +129,19 @@ int main(int argc, char* argv[])
 {
 	srand(time(NULL));
 
+	_amplitude = (COLUMNS > ROWS ? COLUMNS : ROWS) * _amplitude;
+
+	Cube cubeGrid[COLUMNS][ROWS];
+
+	Vector3 startingPoint((_spaceBetweenCubes / -2) * (COLUMNS - 1), (_spaceBetweenCubes / -2) * (ROWS - 1), 0);
+
 	for (int i = 0; i < COLUMNS; i++)
 	{
-		for (int j = 0; j < ROWS; i++)
+		for (int j = 0; j < ROWS; j++)
 		{
-			_cubeGrid[i][j].Cube::Cube();
+			_cubeGrid[i][j] = cubeGrid[i][j];
+			Vector3 newPosition(startingPoint._x + _spaceBetweenCubes * i, startingPoint._y + _spaceBetweenCubes * j, 0);
+			_cubeGrid[i][j].SetPosition(newPosition);
 		}
 	}
 

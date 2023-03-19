@@ -1,2 +1,3 @@
 C:\Users\ALUMNO\Documents\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a1\Debug\ferchus-informatica-grafica-a1.exe
 C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a5-circulos\Debug\ferchus-informatica-grafica-a5-circulos.exe
+C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-a5-circulos\Debug\ferchus-informatica-grafica-a5-circulos.exe
