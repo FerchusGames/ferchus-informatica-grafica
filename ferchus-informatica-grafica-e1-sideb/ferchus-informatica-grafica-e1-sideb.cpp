@@ -13,8 +13,8 @@ using namespace std;
 int _t = 1, _old_t = 1;
 float _deltaTime = 0;
 
-const int COLUMNS = 100;
-const int ROWS = 100;
+const int COLUMNS = 3;
+const int ROWS = 3;
 
 float _spaceBetweenCubes = 1.2;
 
@@ -84,7 +84,8 @@ void renderScene(void)
 	{
 		for (int j = 0; j < ROWS; j++)
 		{
-			_cubeGrid[i][j].Draw(_deltaTime);
+			_cubeGrid[i][j].MoveBackAndForth(_deltaTime);
+			_cubeGrid[i][j].Draw();
 		}
 	}
 

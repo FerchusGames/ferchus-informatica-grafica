@@ -1,8 +1,13 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (ferchus-informatica-grafica-a1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (ferchus-informatica-grafica-a1.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+  Cube.cpp
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\Cube.h(26): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
   ferchus-informatica-grafica-e1-sideb.cpp
-C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\Cube.h(25,24): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\ferchus-informatica-grafica-e1-sideb.cpp(19,31): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\ferchus-informatica-grafica-e1-sideb.cpp(28,23): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\ferchus-informatica-grafica-e1-sideb.cpp(41,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\ferchus-informatica-grafica-e1-sideb.cpp(130,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  ferchus-informatica-grafica-a1.vcxproj -> C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\Debug\ferchus-informatica-grafica-e1-sideb.exe
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\Cube.h(26): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\ferchus-informatica-grafica-e1-sideb.cpp(19,31): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\ferchus-informatica-grafica-e1-sideb.cpp(28,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\ferchus-informatica-grafica-e1-sideb.cpp(41,14): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\ferchus-informatica-grafica-e1-sideb.cpp(131,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Vector3.cpp
+  Vector2.cpp
+  Generando código...
+  ferchus-informatica-grafica-a1.vcxproj -> C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\Debug\ferchus-informatica-grafica-e1-sideb.exe

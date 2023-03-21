@@ -5,7 +5,8 @@
 
 #include "Random.h"
 #include "Color.h"
-#include "Vector.h"
+#include "Vector3.h"
+#include <iostream>
 
 class Cube
 {
@@ -28,11 +29,12 @@ class Cube
 
 		Color _color;
 
-
 	public:
 		Cube();
 
 		void SetPosition(Vector3 position);
 
-		void Draw(float time);
+		void Draw();
+
+		void MoveBackAndForth(float deltaTime);
 };

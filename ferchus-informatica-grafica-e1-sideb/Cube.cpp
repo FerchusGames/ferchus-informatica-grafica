@@ -1,5 +1,4 @@
 #include "Cube.h"
-#include <iostream>
 
 using namespace std;
 
@@ -19,15 +18,8 @@ void Cube::SetPosition(Vector3 position)
 	_position = position;
 }
 
-void Cube::Draw(float deltaTime)
+void Cube::Draw()
 {
-	if (abs(_position._z + _speed * deltaTime) > _movementRange)
-	{
-		_speed *= -1;
-	}
-
-	_position._z += deltaTime * _speed;
-
 	Color color = _color;
 
 	glPushMatrix();
@@ -37,6 +29,7 @@ void Cube::Draw(float deltaTime)
 
 		glBegin(GL_QUADS);
 
+#pragma region Vertex
 			// Bottom
 			glColor3ub(color._r, color._g, color._b);
 
@@ -91,6 +84,16 @@ void Cube::Draw(float deltaTime)
 			glVertex3f(-0.5f, 0.5f, -0.5f);
 
 		glEnd();
-
+#pragma endregion
 	glPopMatrix();
+}
+
+void Cube::MoveBackAndForth(float deltaTime)
+{
+	if (abs(_position._z + _speed * deltaTime) > _movementRange)
+	{
+		_speed *= -1;
+	}
+
+	_position._z += deltaTime * _speed;
 }
