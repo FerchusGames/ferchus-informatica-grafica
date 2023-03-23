@@ -24,10 +24,14 @@ bool _goingLeft = false, _goingRight = false;
 
 // Exercise Variables
 
-Cube cubeX, cubeY, cubeZ;
+const int CUBE_AMOUNT = 3;
+
+float scale = 0.5f;
+
+Cube cubes[3];
 
 Color red, blue, green;
-Vector3 xHandle, yHandle, zHandle;
+Vector3 vectors[3];
 
 #pragma region OpenGLSetupInputAndStuff
 
@@ -59,7 +63,6 @@ void changeWindowSize(int w, int h)
 void Initialization() {
 	cout << "Codigo inicial aqui" << endl;
 }
-
 
 void processNormalKeys(unsigned char key, int x, int y)
 {
@@ -117,9 +120,18 @@ void renderScene(void)
 
 #pragma region Exercise
 
-	cubeX.Draw();
-	cubeY.Draw();
-	cubeZ.Draw();
+
+	for (int i = 0; i < CUBE_AMOUNT; i++)
+	{
+		cubes[i].Draw();
+
+		glBegin(GL_LINES);
+
+		glVertex3f(0, 0, 0);
+		glVertex3f(vectors[i]._x, vectors[i]._y, vectors[i]._z);
+
+		glEnd();
+	}
 
 #pragma endregion
 
@@ -134,20 +146,33 @@ int main(int argc, char* argv[])
 	blue = blue.blue();
 	green = green.green();
 
-	xHandle = Vector3(2, 0, 0);
-	zHandle = Vector3(0, 0, 2);
+	cubes[0].SetColor(red);
+	cubes[1].SetColor(green);
+	cubes[2].SetColor(blue);
 
-	cubeX.SetColor(red);
-	cubeY.SetColor(green);
-	cubeZ.SetColor(blue);
+	for (int i = 0; i < CUBE_AMOUNT - 1; i++) // Player input
+	{
+		cout << "vectors[" << i << "]" << endl;
+		cout << "Ingresa el valor x: ";
+		cin >> vectors[i]._x;
+		cout << "Ingresa el valor y: ";
+		cin >> vectors[i]._y;
+		cout << "Ingresa el valor z: ";
+		cin >> vectors[i]._z;
+		cout << endl;
+	}
 
-	yHandle._x = 1 * ((xHandle._y * zHandle._z) - (xHandle._z * zHandle._y));
-	yHandle._y = -1 * ((xHandle._x * zHandle._z) - (xHandle._z * zHandle._x));
-	yHandle._z = 1 * ((xHandle._x * zHandle._y) - (xHandle._y * zHandle._x));
+	vectors[2]._x = 1 * ((vectors[0]._y * vectors[1]._z) - (vectors[0]._z * vectors[1]._y));
+	vectors[2]._y = -1 * ((vectors[0]._x * vectors[1]._z) - (vectors[0]._z * vectors[1]._x));
+	vectors[2]._z = 1 * ((vectors[0]._x * vectors[1]._y) - (vectors[0]._y * vectors[1]._x));
 
-	cubeX.SetPosition(xHandle);
-	cubeY.SetPosition(yHandle);
-	cubeZ.SetPosition(zHandle);
+	for (int i = 0; i < CUBE_AMOUNT; i++) // Set values
+	{
+		cubes[i].SetScale(scale);
+		cubes[i].SetPosition(vectors[i]);
+	}
+
+#pragma region OpenGL Start Configuration
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
@@ -169,6 +194,8 @@ int main(int argc, char* argv[])
 
 	// entrar GLUT al ciclo de procesamiento de eventos
 	glutMainLoop();
+
+#pragma endregion
 
 	return 1;
 }

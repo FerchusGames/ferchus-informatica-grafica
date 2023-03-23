@@ -1,0 +1,5 @@
+C:\Users\ALUMNO\Documents\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a1\Debug\ferchus-informatica-grafica-a1.exe
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\Debug\ferchus-informatica-grafica-e1-sideb.exe
+C:\Users\super\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e1-sideb\Debug\ferchus-informatica-grafica-e1-sideb.exe
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a6-producto-cruz\Debug\ferchus-informatica-grafica-a6-producto-cruz.exe
+C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a7-producto-punto\Debug\ferchus-informatica-grafica-a7-producto-punto.exe
