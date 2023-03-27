@@ -18,10 +18,22 @@ const Vector3 Vector3::CrossProduct(Vector3 vector1, Vector3 vector2)
 	return result;
 }
 
-Vector3 Vector3::zero(0, 0, 0);
-Vector3 Vector3::right(1, 0, 0);
-Vector3 Vector3::left(-1, 0, 0);
-Vector3 Vector3::up(0, 1, 0);
-Vector3 Vector3::down(0, -1, 0);
-Vector3 Vector3::forward(0, 0, 1);
-Vector3 Vector3::backward(0, 0, -1);
+const Vector3 Vector3::normalized()
+{
+	float magnitude = sqrt(pow(_x, 2) + pow(_y, 2) + pow(_z, 2));
+
+	return Vector3(_x / magnitude, _y / magnitude, _z / magnitude);
+}
+
+const float Vector3::DotProduct(Vector3 vector1, Vector3 vector2)
+{
+	return ((vector1._x * vector2._x) + (vector1._y * vector2._y) + (vector1._z * vector2._z));
+}
+
+const Vector3 Vector3::zero(0, 0, 0);
+const Vector3 Vector3::right(1, 0, 0);
+const Vector3 Vector3::left(-1, 0, 0);
+const Vector3 Vector3::up(0, 1, 0);
+const Vector3 Vector3::down(0, -1, 0);
+const Vector3 Vector3::forward(0, 0, 1);
+const Vector3 Vector3::backward(0, 0, -1);
