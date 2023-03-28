@@ -27,7 +27,9 @@ float _sliderHorizontal = 0;
 float _sliderVertical = 0;
 
 float _cameraRotationSpeed = 5;
-float _cameraHandleAmplitude = 10;
+float _cameraHandleAmplitude = 5;
+
+float ambientLight[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 bool _goingLeft = false, _goingRight = false, _goingDown = false, _goingUp = false;
 
@@ -73,6 +75,10 @@ void Initialization()
 	glClearColor(0, 0, 0, 0);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
 }
 
 void renderScene(void)
@@ -98,12 +104,12 @@ void renderScene(void)
 #pragma region Exercise
 
 	glPushMatrix();
-		glTranslatef(-1, 0, 0);
+		glTranslatef(-0.6f, 0, 0);
 		_leftPlane.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-		glTranslatef(1, 0, 0);
+		glTranslatef(0.6f, 0, 0);
 		_rightPlane.Draw();
 	glPopMatrix();
 
