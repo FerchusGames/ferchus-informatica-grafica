@@ -13,3 +13,9 @@ void InputUp(int key, int xx, int yy);
 void renderScene(void);
 
 int main(int argc, char* argv[]);
+
+#pragma region Exercise
+
+void DrawCircle(int segments, float amplitude);
+
+#pragma endregion

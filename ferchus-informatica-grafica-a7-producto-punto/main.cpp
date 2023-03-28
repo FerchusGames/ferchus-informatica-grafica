@@ -8,11 +8,17 @@
 #include <ctime>
 
 #include "Cube.h"
+#include "Vector2.h"
 
 using namespace std;
 
+// Math
+
+const float PI = 3.1416;
+const float TAU = PI * 2;
+
 // Variables  para contar el tiempo
-int _t = 1, _old_t = 1;
+float _t = 1, _old_t = 1;
 float _deltaTime = 0;
 
 // Other Variables
@@ -20,47 +26,26 @@ float _sliderHorizontal = 0;
 float _sliderVertical = 0;
 
 float _cameraRotationSpeed = 5;
-float _amplitude = 20;
+float _cameraHandleAmplitude = 10;
 
-bool _goingLeft = false, _goingRight = false;
+bool _goingLeft = false, _goingRight = false, _goingDown = false, _goingUp = false;
 
 // Exercise Variables
 
-const int CUBE_AMOUNT = 3;
+int _segments = 9;
+int _amplitude = 1;
 
-float scale = 0.5f;
+float _alpha = 1;
+float _timeToComplete = 10;
+float _lineLength = 2;
+float _playerSpeed = 2;
 
-Cube cubes[3];
-
-Vector3 vectors[3];
+Vector2 _spinningVector;
+Vector2 _playerVector;
 
 int main(int argc, char* argv[]) 
 {
 	srand(time(NULL));
-
-	cubes[0].SetColor(Color::red);
-	cubes[1].SetColor(Color::green);
-	cubes[2].SetColor(Color::blue);
-
-	for (int i = 0; i < CUBE_AMOUNT - 1; i++) // Player input
-	{
-		cout << "vectors[" << i << "]" << endl;
-		cout << "Ingresa el valor x: ";
-		cin >> vectors[i]._x;
-		cout << "Ingresa el valor y: ";
-		cin >> vectors[i]._y;
-		cout << "Ingresa el valor z: ";
-		cin >> vectors[i]._z;
-		cout << endl;
-	}
-
-	vectors[2] = Vector3::CrossProduct(vectors[0], vectors[1]);
-
-	for (int i = 0; i < CUBE_AMOUNT; i++) // Set values
-	{
-		cubes[i].SetScale(scale);
-		cubes[i].SetPosition(vectors[i]);
-	}
 
 #pragma region OpenGL Start Configuration
 
@@ -90,6 +75,13 @@ int main(int argc, char* argv[])
 	return 1;
 }
 
+void Initialization() 
+{
+	glClearColor(0, 0, 0, 0);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
 void renderScene(void)
 {
 	// Limpia los buffers
@@ -100,9 +92,11 @@ void renderScene(void)
 
 	if (_goingLeft) _sliderHorizontal -= _deltaTime * _cameraRotationSpeed;
 	if (_goingRight) _sliderHorizontal += _deltaTime * _cameraRotationSpeed;
+	if (_goingDown) _sliderVertical -= _deltaTime * _playerSpeed;
+	if (_goingUp) _sliderVertical += _deltaTime * _playerSpeed;
 
 	gluLookAt(
-		sin(static_cast<double>(_sliderHorizontal)) * static_cast<double>(_amplitude), 5, cos(static_cast<double>(_sliderHorizontal)) * static_cast<double>(_amplitude), //pos
+		sin(static_cast<double>(_sliderHorizontal)) * static_cast<double>(_cameraHandleAmplitude), 0, cos(static_cast<double>(_sliderHorizontal)) * static_cast<double>(_cameraHandleAmplitude), //pos
 		0.0f, 0.0f, 0, //target
 		0.0f, 1.0f, 0.0f); //up Vector
 
@@ -112,22 +106,90 @@ void renderScene(void)
 
 #pragma region Exercise
 
+	glBegin(GL_LINES); // Spinning Line
 
-	for (int i = 0; i < CUBE_AMOUNT; i++)
-	{
-		cubes[i].Draw();
+		glColor3f(1, 1, 1);
+		glVertex2f(0, 0);
+		_spinningVector = Vector2(sin(((_t / 1000 / _timeToComplete) * TAU)) * _lineLength, cos(((_t / 1000 / _timeToComplete) * TAU)) * _lineLength);
+		glVertex2f(_spinningVector._x, _spinningVector._y);
 
-		glBegin(GL_LINES);
+	glEnd();
 
-		glVertex3f(0, 0, 0);
-		glVertex3f(vectors[i]._x, vectors[i]._y, vectors[i]._z);
+	glBegin(GL_LINES); // Player Line
 
-		glEnd();
-	}
+		glColor3f(1, 1, 1);
+		glVertex2f(0, 0);
+		_playerVector = Vector2(sin(((_sliderVertical) * TAU)) * _lineLength, cos(((_sliderVertical) * TAU)) * _lineLength);
+		glVertex2f(_playerVector._x, _playerVector._y);
+
+	glEnd();
+
+	_alpha = (Vector2::DotProduct(_spinningVector.normalized(), _playerVector.normalized()) + 1) / 2;
+
+	glBegin(GL_QUADS); // Square
+
+		glColor4f(1, 0, 0, _alpha);
+
+		glVertex3f(-0.5f, -0.5f, 0);
+		glVertex3f(-0.5f, 0.5f, 0);
+		glVertex3f(0.5f, 0.5f, 0);
+		glVertex3f(0.5f, -0.5f, 0);
+	
+	glEnd();
 
 #pragma endregion
 
 	glutSwapBuffers(); //intercambia los búferes de la ventana actual si tiene doble búfer.
+}
+
+void DrawCircle(int segments, float amplitude)
+{
+	Color color(255, 0, 0);
+
+	float x = 0;
+	float circleStep = (1.0f / segments) * TAU;
+	float colorStep = 255 / (segments / 3);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glBegin(GL_TRIANGLE_FAN);
+
+	glColor3ub(255, 255, 255);
+	glVertex2f(0.0f, 0.0f);
+	
+	for (int i = 0; i <= (segments / 3) * 1; i++)
+	{
+		glColor3ub(color._r, color._g, color._b);
+
+		color._r -= colorStep;
+		color._g += colorStep;
+
+		x += circleStep;
+		glVertex2f(sin(x) * amplitude, cos(x) * amplitude);
+	}
+
+	for (int i = 0; i <= (segments / 3) * 2; i++)
+	{
+		glColor3ub(color._r, color._g, color._b);
+
+		color._g -= colorStep;
+		color._b += colorStep;
+
+		x += circleStep;
+		glVertex2f(sin(x) * amplitude, cos(x) * amplitude);
+	}
+
+	for (int i = 0; i <= segments; i++)
+	{
+		glColor3ub(color._r, color._g, color._b);
+
+		color._b -= colorStep;
+		color._r += colorStep;
+
+		x += circleStep;
+		glVertex2f(sin(x) * amplitude, cos(x) * amplitude);
+	}
+
+	glEnd();
 }
 
 #pragma region OpenGLSetupInputAndStuff
@@ -157,10 +219,6 @@ void changeWindowSize(int w, int h)
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void Initialization() {
-	cout << "Codigo inicial aqui" << endl;
-}
-
 void processNormalKeys(unsigned char key, int x, int y)
 {
 	//cout << (int)key << endl;
@@ -178,6 +236,12 @@ void InputDown(int key, int xx, int yy)
 	case GLUT_KEY_LEFT:
 		_goingLeft = true;
 		break;
+	case GLUT_KEY_UP:
+		_goingUp = true;
+		break;
+	case GLUT_KEY_DOWN:
+		_goingDown = true;
+		break;
 	}
 }
 
@@ -190,6 +254,12 @@ void InputUp(int key, int xx, int yy)
 		break;
 	case GLUT_KEY_LEFT:
 		_goingLeft = false;
+		break;
+	case GLUT_KEY_UP:
+		_goingUp = false;
+		break;
+	case GLUT_KEY_DOWN:
+		_goingDown = false;
 		break;
 	}
 }
