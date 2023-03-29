@@ -29,12 +29,12 @@ float _sliderVertical = 0;
 float _cameraRotationSpeed = 5;
 float _cameraHandleAmplitude = 5;
 
-float ambientLight[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-float lightPosition[] = { 10.0f, 0.0f, 1000.0f, 1 };
+float ambientLight[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+float lightPosition[] = { 0.0f, 0.0f, 1.0f, 1.0f };
 
-float ambientReflection[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-float diffuseReflection[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-float specularReflection[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+float ambientReflection[] = { 0.2f, 0.2f, 0.2f, 0.2f };
+float diffuseReflection[] = { 0.8f, 0.8f, 0.8f, 0.2f };
+float specularReflection[] = { 0.0f, 0.0f, 0.0f, 0.5f };
 
 bool _goingLeft = false, _goingRight = false, _goingDown = false, _goingUp = false;
 
@@ -87,16 +87,14 @@ void Initialization()
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 
-
 	glEnable(GL_COLOR_MATERIAL);
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambientReflection); //reflectancia ambiental 0.2,0.2,0.2,1.0
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuseReflection); //reflectancia difusa 0.8,0.8,0.8,1.0
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specularReflection); //0.0,0.0,0.0,1.0
-	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 60.0); //0-128
-	
 	//Cara, parametro, valor
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambientReflection); 
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuseReflection); 
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specularReflection); 
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 10.0); //0-128
 }
 
 void renderScene(void)
@@ -122,14 +120,15 @@ void renderScene(void)
 #pragma region Exercise
 
 	glPushMatrix();
-		glTranslatef(-0.6f, 0, 0);
+		//glTranslatef(-0.6f, 0, 0);
 		_leftPlane.Draw();
 	glPopMatrix();
-
+	/*
 	glPushMatrix();
 		glTranslatef(0.6f, 0, 0);
 		_rightPlane.Draw();
 	glPopMatrix();
+	*/
 
 
 #pragma endregion
