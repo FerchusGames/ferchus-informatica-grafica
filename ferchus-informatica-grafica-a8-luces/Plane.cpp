@@ -13,7 +13,7 @@ void Plane::Draw()
 {
 	Vector2 pos(-0.5f, -0.5f);
 
-	float quadDistance = 1 / _horizontalQuadCount;
+	float quadDistance = 1.0f / _horizontalQuadCount;
 
 	glBegin(GL_QUADS);
 
@@ -21,10 +21,12 @@ void Plane::Draw()
 	{
 		for (int j = 0; j < _horizontalQuadCount; j++)
 		{
+			//glColor3f((pos._x + quadDistance * i) + 0.5f, (pos._y + quadDistance * j) + 0.5f, 0);
+			
+			glVertex2f(pos._x + quadDistance * (i + 1), pos._y + quadDistance * j);
+			glVertex2f(pos._x + quadDistance * (i + 1), pos._y + quadDistance * (j + 1));
+			glVertex2f(pos._x + quadDistance * i, pos._y + quadDistance * (j + 1));
 			glVertex2f(pos._x + quadDistance * i, pos._y + quadDistance * j);
-			glVertex2f(pos._x + quadDistance * i, pos._y + quadDistance * j + 1);
-			glVertex2f(pos._x + quadDistance * i + 1, pos._y + quadDistance * j + 1);
-			glVertex2f(pos._x + quadDistance * i + 1, pos._y + quadDistance * j);
 		}
 	}
 

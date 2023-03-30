@@ -2,8 +2,11 @@
 
 #include <GL\glew.h>
 #include <GL\freeglut.h>
+#include <iostream>
 
 #include "Vector2.h";
+
+using namespace std;
 
 class Plane
 {
