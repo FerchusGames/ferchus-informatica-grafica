@@ -1,22 +1,14 @@
 #pragma once
 
-#include <GL\glew.h>
-#include <GL\freeglut.h>
-#include <iostream>
-
-#include "vector2.h";
-
-using namespace std;
-
-class Plane
+class plane
 {
 public:
-	Plane();
-	Plane(int horizontalQuadCount);
+	plane() = default;
+	explicit plane(const int& _horizontal_quad_count);
 
-	void Draw();
+	void draw() const;
 
 private:
-	int _horizontalQuadCount = 10;
+	int horizontal_quad_count_ = 10;
 };
 

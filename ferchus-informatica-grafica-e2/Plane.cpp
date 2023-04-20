@@ -1,32 +1,31 @@
-#include "Plane.h"
+#include "plane.h"
 
-Plane::Plane() 
+#include <GL/glew.h>
+#include "vector2.h"
+
+plane::plane(const int& _horizontal_quad_count)
 {
+	horizontal_quad_count_ = _horizontal_quad_count;
 }
 
-Plane::Plane(int horizontalQuadCount)
+void plane::draw() const
 {
-	_horizontalQuadCount = horizontalQuadCount;
-}
+	const vector2 pos(-0.5f, -0.5f);
 
-void Plane::Draw()
-{
-	vector2 pos(-0.5f, -0.5f);
-
-	float quadDistance = 1.0f / _horizontalQuadCount;
+	const float quad_distance = 1.0f / static_cast<float>(horizontal_quad_count_);
 
 	glBegin(GL_QUADS);
 
-	for (int i = 0; i < _horizontalQuadCount; i++)
+	for (int i = 0; i < horizontal_quad_count_; i++)
 	{
-		for (int j = 0; j < _horizontalQuadCount; j++)
+		for (int j = 0; j < horizontal_quad_count_; j++)
 		{
 			//glColor3f((pos._x + quadDistance * i) + 0.5f, (pos._y + quadDistance * j) + 0.5f, 0);
 			
-			glVertex2f(pos.x + quadDistance * (i + 1), pos.y + quadDistance * j);
-			glVertex2f(pos.x + quadDistance * (i + 1), pos.y + quadDistance * (j + 1));
-			glVertex2f(pos.x + quadDistance * i, pos.y + quadDistance * (j + 1));
-			glVertex2f(pos.x + quadDistance * i, pos.y + quadDistance * j);
+			glVertex2f(pos.x + quad_distance * (i + 1), pos.y + quad_distance * j);
+			glVertex2f(pos.x + quad_distance * (i + 1), pos.y + quad_distance * (j + 1));
+			glVertex2f(pos.x + quad_distance * i, pos.y + quad_distance * (j + 1));
+			glVertex2f(pos.x + quad_distance * i, pos.y + quad_distance * j);
 		}
 	}
 

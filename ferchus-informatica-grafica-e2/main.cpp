@@ -7,7 +7,7 @@
 #include <iostream>
 #include <ctime>
 
-#include "Plane.h"
+#include "plane.h"
 #include "Cube.h"
 #include "vector2.h"
 
@@ -31,7 +31,7 @@ float camera_handle_amplitude = 5;
 
 float light_ambient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 float light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-float light_especular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+float light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 float light_position[] = { 0.0f, 0.0f, 0.1f, 1.0f };
 
 float gray[] = { 0.6f, 0.6f, 0.6f, 1.0f };
@@ -42,8 +42,8 @@ float x_light = 0;
 
 // Exercise Variables
 
-Plane left_plane(180);
-Plane right_plane(180);
+plane left_plane(180);
+plane right_plane(180);
 
 int main(int argc, char* argv[]) 
 {
@@ -84,7 +84,7 @@ void initialization()
 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, light_especular);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
@@ -125,12 +125,12 @@ void render_scene(void)
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glPushMatrix();
 		glTranslatef(-0.6f, 0, 0);
-		left_plane.Draw();
+		left_plane.draw();
 	glPopMatrix();
 	
 	glPushMatrix();
 		glTranslatef(0.6f, 0, 0);
-		right_plane.Draw();
+		right_plane.draw();
 	glPopMatrix();
 	
 #pragma endregion

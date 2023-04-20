@@ -132,19 +132,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="collider2d.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="game_object2d.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="plane.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="vector3.cpp" />
     <ClCompile Include="vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="collider2d.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="game_object2d.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="Plane.h" />
+    <ClInclude Include="plane.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="vector2.h" />

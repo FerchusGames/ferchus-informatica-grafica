@@ -5,3 +5,4 @@ C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafic
 C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a7-producto-punto\Debug\ferchus-informatica-grafica-a7-producto-punto.exe
 C:\Users\Universidad Amerike\Documents\GitHub\Ferchus\ferchus-informatica-grafica\ferchus-informatica-grafica-a8-luces\Debug\ferchus-informatica-grafica-a7-producto-punto.exe
 C:\Users\super\OneDrive - amerike.edu.mx\Documents\Proyectos\OpenGL Game\ferchus-informatica-grafica-e2\Debug\ferchus-informatica-grafica-e2.exe
+C:\Users\Ferchus\Documents\GitHub\ferchus-informatica-grafica\ferchus-informatica-grafica-e2\Debug\ferchus-informatica-grafica-e2.exe
