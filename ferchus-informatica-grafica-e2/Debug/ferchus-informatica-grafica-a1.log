@@ -1,0 +1,11 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (ferchus-informatica-grafica-a1.vcxproj, ferchus-informatica-grafica-a6-producto-cruz.vcxproj, ferchus-informatica-grafica-a7-producto-punto.vcxproj, ferchus-informatica-grafica-e1-sideb.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Cube.cpp
+C:\Users\super\OneDrive - amerike.edu.mx\Documents\Proyectos\OpenGL Game\ferchus-informatica-grafica-e2\Cube.h(26): warning C4305: 'initializing': truncation from 'double' to 'float'
+  color.cpp
+  main.cpp
+C:\Users\super\OneDrive - amerike.edu.mx\Documents\Proyectos\OpenGL Game\ferchus-informatica-grafica-e2\Plane.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\super\OneDrive - amerike.edu.mx\Documents\Proyectos\OpenGL Game\ferchus-informatica-grafica-e2\Cube.h(26): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\super\OneDrive - amerike.edu.mx\Documents\Proyectos\OpenGL Game\ferchus-informatica-grafica-e2\main.cpp(50,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  vector3.cpp
+  Generating Code...
+  ferchus-informatica-grafica-a1.vcxproj -> C:\Users\super\OneDrive - amerike.edu.mx\Documents\Proyectos\OpenGL Game\ferchus-informatica-grafica-e2\Debug\ferchus-informatica-grafica-e2.exe
