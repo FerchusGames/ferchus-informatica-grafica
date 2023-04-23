@@ -78,6 +78,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\GL\glew\include;C:\GL\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,23 +135,29 @@
   <ItemGroup>
     <ClCompile Include="collider2d.cpp" />
     <ClCompile Include="color.cpp" />
-    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="cube.cpp" />
     <ClCompile Include="game_object2d.cpp" />
+    <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="paddle.cpp" />
     <ClCompile Include="plane.cpp" />
-    <ClCompile Include="Random.cpp" />
+    <ClCompile Include="random.cpp" />
+    <ClCompile Include="game_time.cpp" />
     <ClCompile Include="vector3.cpp" />
     <ClCompile Include="vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="collider2d.h" />
     <ClInclude Include="color.h" />
-    <ClInclude Include="Cube.h" />
+    <ClInclude Include="cube.h" />
     <ClInclude Include="game_object2d.h" />
+    <ClInclude Include="input.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="paddle.h" />
     <ClInclude Include="plane.h" />
-    <ClInclude Include="Random.h" />
+    <ClInclude Include="random.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="game_time.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="vector3.h" />
   </ItemGroup>

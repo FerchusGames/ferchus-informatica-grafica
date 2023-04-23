@@ -6,7 +6,7 @@ class collider2d
 {
 public:
 	collider2d() = default;
-	collider2d(const float& top, const float& bottom, const float& left, const float& right);
+	explicit collider2d(const vector2& scale);
 
 	bool check_collisions(const collider2d& other) const;
 
@@ -15,9 +15,5 @@ public:
 private:
 
 	vector2 position_ = vector2(0.0f, 0.0f);
-
-	float top_ = 0.5f;
-	float bottom_ = 0.5f;
-	float left_ = 0.5f;
-	float right_ = 0.5f;
+	vector2 scale_ = vector2(1.0f, 1.0f);
 };

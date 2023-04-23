@@ -1,48 +1,49 @@
-#include "Cube.h"
+#include "cube.h"
+
+#include <GL/glew.h>
+#include <iostream>
+#include "Random.h"
 
 using namespace std;
 
-Cube::Cube()
+cube::cube()
 {
-	do _speedPercentage = RandomPercentage(); while (_speedPercentage < _minSpeedPercentage);
-	_speed = _speedPercentage * _speedMultiplier;
-
-	_color = color(RandomUChar() / 2, RandomUChar() / 2, RandomUChar() / 2);
+	color_ = color(random_percentage() / 2, random_percentage() / 2, random_percentage() / 2);
 }
 
-void Cube::SetPosition(vector3 position)
+void cube::set_position(vector3 position)
 {
-	_position = position;
+	position_ = position;
 }
 
-void Cube::SetColor(color color)
+void cube::set_color(color color)
 {
-	_color = color;
+	color_ = color;
 
-	_color.r /= 2;
-	_color.g /= 2;
-	_color.b /= 2;
+	color_.r /= 2;
+	color_.g /= 2;
+	color_.b /= 2;
 }
 
-void Cube::SetScale(float scale)
+void cube::set_scale(float scale)
 {
-	_scale = scale;
+	scale_ = scale;
 }
 
-void Cube::Draw()
+void cube::draw() const
 {
-	color color = _color;
+	color color = color_;
 
 	glPushMatrix();
 
-	glTranslatef(_position.x, _position.y, _position.z);
-	glScalef(_scale, _scale, _scale);
+	glTranslatef(position_.x, position_.y, position_.z);
+	glScalef(scale_, scale_, scale_);
 
 		glBegin(GL_QUADS);
 
 #pragma region Vertex
 			// Bottom
-			glColor3ub(color.r, color.g, color.b);
+			glColor3f(color.r, color.g, color.b);
 
 			glVertex3f(-0.5f, -0.5f, -0.5f);
 			glVertex3f(0.5f, -0.5f, -0.5f);
@@ -50,8 +51,8 @@ void Cube::Draw()
 			glVertex3f(-0.5f, -0.5f, 0.5f);
 
 			// Front
-			color.add(_colorChange);
-			glColor3ub(color.r, color.g, color.b);
+			color.add(color_change_);
+			glColor3f(color.r, color.g, color.b);
 
 			glVertex3f(-0.5f, -0.5f, 0.5f);
 			glVertex3f(0.5f, -0.5f, 0.5f);
@@ -59,8 +60,8 @@ void Cube::Draw()
 			glVertex3f(-0.5f, 0.5f, 0.5f);
 
 			// Right
-			color.add(_colorChange);
-			glColor3ub(color.r, color.g, color.b);
+			color.add(color_change_);
+			glColor3f(color.r, color.g, color.b);
 
 			glVertex3f(0.5f, -0.5f, 0.5f);
 			glVertex3f(0.5f, -0.5f, -0.5f);
@@ -68,7 +69,7 @@ void Cube::Draw()
 			glVertex3f(0.5f, 0.5f, 0.5f);
 
 			// Back
-			color.add(_colorChange);
+			color.add(color_change_);
 			glColor3ub(color.r, color.g, color.b);
 
 			glVertex3f(0.5f, -0.5f, -0.5f);
@@ -77,7 +78,7 @@ void Cube::Draw()
 			glVertex3f(0.5f, 0.5f, -0.5f);
 
 			// Left
-			color.add(_colorChange);
+			color.add(color_change_);
 			glColor3ub(color.r, color.g, color.b);
 
 			glVertex3f(-0.5f, -0.5f, -0.5f);
@@ -86,8 +87,8 @@ void Cube::Draw()
 			glVertex3f(-0.5f, 0.5f, -0.5f);
 
 			// Top
-			color.add(_colorChange);
-			glColor3ub(color.r, color.g, color.b);
+			color.add(color_change_);
+			glColor3f(color.r, color.g, color.b);
 
 			glVertex3f(-0.5f, 0.5f, 0.5f);
 			glVertex3f(0.5f, 0.5f, 0.5f);
@@ -99,12 +100,4 @@ void Cube::Draw()
 	glPopMatrix();
 }
 
-void Cube::MoveBackAndForth(float deltaTime)
-{
-	if (abs(_position.z + _speed * deltaTime) > _movementRange)
-	{
-		_speed *= -1;
-	}
 
-	_position.z += deltaTime * _speed;
-}

@@ -6,7 +6,7 @@ class game_object2d
 {
 public:
 	game_object2d() = default;
-	game_object2d(const vector2& position, const vector2& scale);
+	game_object2d(const vector2& position, const vector2& scale) : position_(position), scale_(scale) {}
 
 	virtual ~game_object2d() = default;
 	virtual void draw() = 0;

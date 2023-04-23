@@ -8,23 +8,15 @@
 #include <ctime>
 
 #include "plane.h"
-#include "Cube.h"
+#include "cube.h"
 #include "vector2.h"
+#include "game_time.h"
+#include "input.h"
 
-using namespace std;
-
-// Math
+#define delta_time game::time::get_delta_time()
 
 constexpr float pi = 3.1416f;
 constexpr float tau = pi * 2;
-
-// Variables  para contar el tiempo
-float t = 1, old_t = 1;
-float delta_time = 0;
-
-// Other Variables
-float slider_horizontal = 0;
-float slider_vertical = 0;
 
 float camera_rotation_speed = 5;
 float camera_handle_amplitude = 5;
@@ -33,10 +25,6 @@ float light_ambient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 float light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
 float light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 float light_position[] = { 0.0f, 0.0f, 0.1f, 1.0f };
-
-float gray[] = { 0.6f, 0.6f, 0.6f, 1.0f };
-
-bool going_left = false, going_right = false, going_down = false, going_up = false;
 
 float x_light = 0;
 
@@ -93,35 +81,30 @@ void initialization()
 
 	//Cara, parametro, valor
 
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, gray); 
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, gray); 
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, gray); 
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, color::red.to_array()); 
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, color::blue.to_array()); 
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, color::green.to_array()); 
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 60.0f); //0-128
 }
 
 void render_scene(void)
 {
+	game::time::update();
+
 	// Limpia los buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Reinicia las transformaciones
 	glLoadIdentity();
 
-	if (going_left) slider_horizontal -= delta_time * camera_rotation_speed;
-	if (going_right) slider_horizontal += delta_time * camera_rotation_speed;
-
 	gluLookAt(
-		sin(static_cast<double>(slider_horizontal)) * static_cast<double>(camera_handle_amplitude), 0, cos(static_cast<double>(slider_horizontal)) * static_cast<double>(camera_handle_amplitude), //pos
+		0, 0, 10, //pos
 		0, 0, 0, //target
 		0, 1, 0); //up Vector
 
-	t = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); //Obteniendo el tiempo y el delta
-	delta_time = (t - old_t) / 1000.0f;
-	old_t = t;
-	
-	x_light += delta_time;
 #pragma region Exercise
-	light_position[0] = sin(x_light);
+	light_position[0] += input::get_horizontal_axis() * delta_time;
+	light_position[2] += input::get_vertical_axis() * delta_time;
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glPushMatrix();
 		glTranslatef(-0.6f, 0, 0);
@@ -142,7 +125,7 @@ void render_scene(void)
 
 void change_window_size(const int width, int height)
 {
-	cout << "resize" << endl;
+	std::cout << "resize" << std::endl;
 	// Previene una división por cero, cuando la ventana es demasiado corta
 	// (no puede haber ventana con 0 de ancho).
 	if (height == 0)
@@ -177,16 +160,16 @@ void input_down(const int key, int x, int y)
 	switch (key)
 	{
 	case GLUT_KEY_RIGHT:
-		going_right = true;
+		input::set_horizontal_axis(1);
 		break;
 	case GLUT_KEY_LEFT:
-		going_left = true;
+		input::set_horizontal_axis(-1);
 		break;
 	case GLUT_KEY_UP:
-		going_up = true;
+		input::set_vertical_axis(1);
 		break;
 	case GLUT_KEY_DOWN:
-		going_down = true;
+		input::set_vertical_axis(-1);
 		break;
 	default: ;
 	}
@@ -197,16 +180,16 @@ void input_up(const int key, int x, int y)
 	switch (key)
 	{
 	case GLUT_KEY_RIGHT:
-		going_right = false;
+		input::set_horizontal_axis(0);
 		break;
 	case GLUT_KEY_LEFT:
-		going_left = false;
+		input::set_horizontal_axis(0);
 		break;
 	case GLUT_KEY_UP:
-		going_up = false;
+		input::set_vertical_axis(0);
 		break;
 	case GLUT_KEY_DOWN:
-		going_down = false;
+		input::set_vertical_axis(0);
 		break;
 	default: ;
 	}

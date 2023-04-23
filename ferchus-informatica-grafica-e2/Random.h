@@ -1,12 +1,7 @@
 #pragma once
 
-#include <cstdlib>
-#include <iostream>
+unsigned char random_u_char();
 
-using namespace std;
+int random_int(int min, int max);
 
-unsigned char RandomUChar();
-
-int RandomInt(int min, int max);
-
-float RandomPercentage();
+float random_percentage();

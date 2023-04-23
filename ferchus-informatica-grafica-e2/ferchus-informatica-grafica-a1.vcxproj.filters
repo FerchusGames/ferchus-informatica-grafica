@@ -13,72 +13,138 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Archivos de encabezado\Math">
-      <UniqueIdentifier>{2b77cad1-4bcf-48ce-9a1a-d18bd5db6d70}</UniqueIdentifier>
+    <Filter Include="Archivos de encabezado\Components">
+      <UniqueIdentifier>{42c5768e-d5b9-41b7-a9ed-d4bb2466ae4b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Geometry">
+    <Filter Include="Archivos de origen\Components">
+      <UniqueIdentifier>{8dd3fecf-c068-4dc9-a325-c70334529677}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Components\Geometry">
+      <UniqueIdentifier>{22162a4a-ffcc-48a5-9b06-27b2e6d71ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Components\Physics">
+      <UniqueIdentifier>{c8099b2c-aa5d-4f75-bb02-48d600d82ca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Components\Libraries">
+      <UniqueIdentifier>{609568c8-5da3-4ffd-a51a-5858b3c7af71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Structs">
       <UniqueIdentifier>{cc17c3a1-682b-4f2a-931c-62cf20d5d953}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Structs\Drawing">
+      <UniqueIdentifier>{74595a96-007a-41a1-98a3-fe282e1cc15f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Structs\Math">
+      <UniqueIdentifier>{16b4ad1f-eedd-4b0a-9a44-ca5873a1447c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects">
+      <UniqueIdentifier>{ed50a950-59b6-45c2-a358-6f6b02540421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Components\Geometry">
+      <UniqueIdentifier>{71ac15ab-ef2c-4847-afc4-8073d50bbfa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Components\Libraries">
+      <UniqueIdentifier>{1e899d6a-c3bd-459a-a8a4-b91dcd52ebfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Components\Physics">
+      <UniqueIdentifier>{41f95434-5783-421a-ae3c-34a79c230e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Objects">
+      <UniqueIdentifier>{8fe67aa0-0cf3-4170-84b4-c28d070a592a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Structs">
+      <UniqueIdentifier>{f495556d-5b20-4254-a974-290310c7dee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Structs\Drawing">
+      <UniqueIdentifier>{798bbe2e-99e2-4bc0-b226-413416cb198a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Structs\Math">
+      <UniqueIdentifier>{e73d5fd0-d382-4142-af23-e6c0e5dd9d50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Global">
+      <UniqueIdentifier>{e6681279-30e1-4a27-9c00-7afd9a5293c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Global">
+      <UniqueIdentifier>{e2426e04-ca49-4fd8-b8e1-9801e43686d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="vector3.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="collider2d.cpp">
+      <Filter>Archivos de origen\Components\Physics</Filter>
     </ClCompile>
     <ClCompile Include="color.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Structs\Drawing</Filter>
     </ClCompile>
-    <ClCompile Include="Random.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="vector2.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="plane.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="collider2d.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="cube.cpp">
+      <Filter>Archivos de origen\Components\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="game_object2d.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="plane.cpp">
+      <Filter>Archivos de origen\Components\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="random.cpp">
+      <Filter>Archivos de origen\Components\Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="vector2.cpp">
+      <Filter>Archivos de origen\Structs\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="vector3.cpp">
+      <Filter>Archivos de origen\Structs\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="paddle.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="game_time.cpp">
+      <Filter>Archivos de origen\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Archivos de origen\Global</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cube.h">
-      <Filter>Archivos de encabezado\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="vector3.h">
-      <Filter>Archivos de encabezado\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="color.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Random.h">
-      <Filter>Archivos de encabezado\Math</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="plane.h">
-      <Filter>Archivos de encabezado\Geometry</Filter>
+      <Filter>Archivos de encabezado\Components\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="vector2.h">
-      <Filter>Archivos de encabezado\Math</Filter>
+    <ClInclude Include="cube.h">
+      <Filter>Archivos de encabezado\Components\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="collider2d.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Components\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="random.h">
+      <Filter>Archivos de encabezado\Components\Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="color.h">
+      <Filter>Archivos de encabezado\Structs\Drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2.h">
+      <Filter>Archivos de encabezado\Structs\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector3.h">
+      <Filter>Archivos de encabezado\Structs\Math</Filter>
     </ClInclude>
     <ClInclude Include="game_object2d.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="paddle.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="game_time.h">
+      <Filter>Archivos de encabezado\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Archivos de encabezado\Global</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

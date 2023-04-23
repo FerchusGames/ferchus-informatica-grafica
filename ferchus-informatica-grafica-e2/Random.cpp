@@ -1,11 +1,16 @@
-#include "Random.h"
+#include "random.h"
 
-unsigned char RandomUChar()
+#include <cstdlib>
+#include <iostream>
+
+using namespace std;
+
+unsigned char random_u_char()
 {
 	return rand() % 256;
 }
 
-int RandomInt(int min, int max)
+int random_int(const int& min, const int& max) 
 {
 	int number = max - min + 1;
 	number = rand() % number;
@@ -14,7 +19,7 @@ int RandomInt(int min, int max)
 	return number;
 }
 
-float RandomPercentage()
+float random_percentage()
 {
-	return static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
+	return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 }
