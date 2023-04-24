@@ -8,48 +8,15 @@ plane::plane(const int& horizontal_quad_count)
 	horizontal_quad_count_ = horizontal_quad_count;
 }
 
-plane::plane(const int& horizontal_quad_count, const color& color) : plane(horizontal_quad_count)
-{
-		color_ = color;
-}
-
-plane::plane(const vector2& position)
+plane::plane(const vector2& position, const vector2& scale, const int& horizontal_quad_count)
 {
 	position_ = position;
-}
-
-plane::plane(const vector2& position, const color& color) : plane(position)
-{
-	color_ = color;
-}
-
-plane::plane(const vector2& position, const int& horizontal_quad_count) : plane(position)
-{
-	horizontal_quad_count_ = horizontal_quad_count;
-}
-
-plane::plane(const vector2& position, const vector2& scale) : plane(position)
-{
-		scale_ = scale;
-}
-
-plane::plane(const vector2& position, const vector2& scale, const color& color) : plane(position, scale)
-{
-		color_ = color;
-}
-
-plane::plane(const vector2& position, const vector2& scale, const int& horizontal_quad_count) : plane(position, scale)
-{
+	scale_ = scale;
 	horizontal_quad_count_ = horizontal_quad_count;
 }
 
 void plane::draw() const
 {
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, color::black.to_array());
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, color_.to_array());
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, color_.to_array());
-	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 60.0f);
-
 	glPushMatrix();
 
 		glTranslatef(position_.x, position_.y, 0.0f);

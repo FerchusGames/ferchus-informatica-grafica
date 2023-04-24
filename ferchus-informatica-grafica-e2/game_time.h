@@ -1,7 +1,5 @@
 #pragma once
 
-#define delta_time game::time::get_delta_time()
-
 namespace game
 {
 	class time

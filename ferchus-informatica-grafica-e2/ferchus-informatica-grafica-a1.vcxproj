@@ -133,8 +133,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ball.cpp" />
-    <ClCompile Include="block.cpp" />
     <ClCompile Include="collider2d.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="cube.cpp" />
@@ -149,8 +147,6 @@
     <ClCompile Include="vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ball.h" />
-    <ClInclude Include="block.h" />
     <ClInclude Include="collider2d.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="cube.h" />

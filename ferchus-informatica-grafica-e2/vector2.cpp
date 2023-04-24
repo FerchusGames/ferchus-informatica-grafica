@@ -20,64 +20,6 @@ vector2 vector2::normalized() const
 	return {x / magnitude, y / magnitude};
 }
 
-vector2 vector2::operator*(const float& scalar) const
-{
-	return { x * scalar, y * scalar };
-}
-
-vector2 vector2::operator/(const float& scalar) const
-{
-	return { x / scalar, y / scalar };
-}
-
-vector2 vector2::operator+(const vector2& other) const
-{
-	return { x + other.x, y + other.y };
-}
-
-vector2 vector2::operator+(const float& scalar) const
-{
-	return { x + scalar, y + scalar };
-}
-
-vector2 vector2::operator-(const vector2& other) const
-{
-	return { x - other.x, y - other.y };
-}
-
-vector2 vector2::operator-(const float& scalar) const
-{
-	return { x - scalar, y - scalar };
-}
-
-vector2& vector2::operator+=(const vector2& other) 
-{
-	this->x += other.x;
-	this->y += other.y;
-	return *this;
-}
-
-vector2& vector2::operator+=(const float& scalar)
-{
-	this->x += scalar;
-	this->y += scalar;
-	return *this;
-}
-
-vector2& vector2::operator-=(const vector2& other)
-{
-	this->x -= other.x;
-	this->y -= other.y;
-	return *this;
-}
-
-vector2& vector2::operator-=(const float& scalar)
-{
-	this->x -= scalar;
-	this->y -= scalar;
-	return *this;
-}
-
 const vector2 vector2::zero(0, 0);
 const vector2 vector2::right(1, 0);
 const vector2 vector2::left(-1, 0);
