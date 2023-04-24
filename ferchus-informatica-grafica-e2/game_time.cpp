@@ -22,6 +22,6 @@ namespace game
 
 	float time::get_time()
 	{
-		return time_;
+		return time_ / 1000.0f;
 	}
 }
