@@ -16,7 +16,7 @@ float x_light = 0;
 float block_border = 2.0f;
 float block_gap = 0.05f;
 
-vector2 block_grid_dimensions = vector2(2, 2);
+vector2 block_grid_dimensions = vector2(5, 2);
 
 vector2 wall_size = vector2(8.0f, 0.2f);
 vector2 wall_limit = vector2(3.9f, 3.9f);
@@ -120,6 +120,8 @@ void render_scene(void)
 		current_block->update();
 	}
 
+	game_ball->update();
+	player->update();
 
 	check_box_bounds();
 
@@ -132,9 +134,6 @@ void render_scene(void)
 	{
 		std::cout << "You Win" << std::endl;
 	}
-
-	game_ball->update();
-	player->update();
 
 #pragma endregion
 

@@ -8,7 +8,6 @@ int block::count_ = 0;
 block::block() : game_object2d(vector2::zero, vector2(0.7f, 0.5f))
 {
 	count_++;
-	collider_ = collider2d(scale_);
 }
 
 block::block(const vector2& position) : game_object2d(vector2::zero, vector2(0.7f, 0.5f))
@@ -16,13 +15,11 @@ block::block(const vector2& position) : game_object2d(vector2::zero, vector2(0.7
 	count_++;
 	collider_.translate(position_);
 	set_position(position);
-	collider_ = collider2d(scale_);
 }
 
 block::block(const vector2& position, const vector2& scale) : block(position)
 {
 	scale_ = scale;
-	collider_ = collider2d(scale_);
 }
 
 void block::draw()

@@ -21,7 +21,7 @@ public:
 private:
 
 	plane plane_ = plane(180, color::green);
-	collider2d collider_;
+	collider2d collider_ = collider2d(scale_);
 
 	static int count_;
 };
