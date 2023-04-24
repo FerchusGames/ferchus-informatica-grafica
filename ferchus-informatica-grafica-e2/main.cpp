@@ -1,37 +1,32 @@
 #include "main.h"
 
-#include <Windows.h>
-#include <thread>
-#include <GL/glew.h>
-#include <GL/freeglut.h>
-#include <iostream>
-#include <ctime>
-
-#include "plane.h"
-#include "cube.h"
-#include "vector2.h"
-#include "game_time.h"
-#include "input.h"
-
-#define delta_time game::time::get_delta_time()
-
 constexpr float pi = 3.1416f;
 constexpr float tau = pi * 2;
 
 float camera_rotation_speed = 5;
 float camera_handle_amplitude = 5;
 
-float light_ambient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+float light_ambient[] = { 0.01f, 0.01f, 0.01f, 1.0f };
 float light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
 float light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 float light_position[] = { 0.0f, 0.0f, 0.1f, 1.0f };
 
 float x_light = 0;
 
-// Exercise Variables
+float block_border = 2.0f;
+float block_gap = 0.05f;
 
-plane left_plane(180);
-plane right_plane(180);
+vector2 block_grid_dimensions = vector2(2, 2);
+
+vector2 wall_size = vector2(8.0f, 0.2f);
+vector2 wall_limit = vector2(3.9f, 3.9f);
+
+std::unique_ptr<paddle> player;
+std::unique_ptr<ball> game_ball;
+std::vector<std::unique_ptr<block>> block_grid;
+plane walls[4];
+
+// Exercise Variables
 
 int main(int argc, char* argv[]) 
 {
@@ -85,7 +80,19 @@ void initialization()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, color::blue.to_array()); 
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, color::green.to_array()); 
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 60.0f); //0-128
+
+	player = std::make_unique<paddle>(vector2(0.0f, -3.0f), 2.0f);
+	game_ball = std::make_unique<ball>();
+	create_block_list(block_grid_dimensions);
+
+	walls[0] = plane(vector2(0, -wall_limit.y), vector2(wall_size.x, wall_size.y), color::blue);
+	walls[1] = plane(vector2(0, wall_limit.y), vector2(wall_size.x, wall_size.y), color::blue);
+	walls[2] = plane(vector2(-wall_limit.x, 0), vector2(wall_size.y, wall_size.x), color::blue);
+	walls[3] = plane(vector2(wall_limit.x, 0), vector2(wall_size.y, wall_size.x), color::blue);
+
+	light_position[2] = 2.0f;
 }
+
 
 void render_scene(void)
 {
@@ -103,19 +110,32 @@ void render_scene(void)
 		0, 1, 0); //up Vector
 
 #pragma region Exercise
-	light_position[0] += input::get_horizontal_axis() * delta_time;
-	light_position[2] += input::get_vertical_axis() * delta_time;
+	light_position[0] = game_ball->get_position().x;
+	light_position[1] = game_ball->get_position().y;
+
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	glPushMatrix();
-		glTranslatef(-0.6f, 0, 0);
-		left_plane.draw();
-	glPopMatrix();
-	
-	glPushMatrix();
-		glTranslatef(0.6f, 0, 0);
-		right_plane.draw();
-	glPopMatrix();
-	
+
+	for (auto& current_block : block_grid)
+	{
+		current_block->update();
+	}
+
+
+	check_box_bounds();
+
+	for (int i = 0; i < std::size(walls); i++)
+	{
+		walls[i].draw();
+	}
+
+	if (block::get_count() <= 0)
+	{
+		std::cout << "You Win" << std::endl;
+	}
+
+	game_ball->update();
+	player->update();
+
 #pragma endregion
 
 	glutSwapBuffers(); //intercambia los búferes de la ventana actual si tiene doble búfer.
@@ -195,3 +215,46 @@ void input_up(const int key, int x, int y)
 	}
 }
 #pragma endregion
+
+float get_border_gap()
+{
+	return (game_ball->get_scale().x / 2) + (wall_size.y / 2);
+}
+
+void check_box_bounds()
+{
+	if(game_ball->get_next_position().x < -wall_limit.x + get_border_gap()
+		|| game_ball->get_next_position().x > wall_limit.x - get_border_gap())
+	{
+		game_ball->change_direction(true);
+	}
+
+	if (game_ball->get_next_position().y < -wall_limit.y + get_border_gap()
+		|| game_ball->get_next_position().y > wall_limit.y - + get_border_gap())
+	{
+		game_ball->change_direction(false);
+	}
+}
+
+void create_block_list(const vector2& grid_dimensions)
+{
+	const vector2 block_area = vector2(wall_limit.x * 2, wall_limit.y - block_border);
+
+	const vector2 block_size = vector2(block_area.x / grid_dimensions.x - block_gap, block_area.y / grid_dimensions.y - block_gap);
+
+	const vector2 block_distance = block_size + block_gap;
+
+	const vector2 start_position = vector2(-wall_limit.x + block_size.x / 2 + block_gap / 2, 
+	                                       block_border + block_size.y / 2 + block_gap / 2);
+
+	for (int i = 0; i < static_cast<int>(grid_dimensions.x); i++)
+	{
+		for (int j = 0; j < static_cast<int>(grid_dimensions.y); j++)
+		{
+			vector2 block_position = vector2(start_position.x + block_distance.x * i + block_gap * i,
+				start_position.y + block_distance.y * j + block_gap * j);
+
+			block_grid.emplace_back(std::make_unique<block>(block_position, block_size));
+		}
+	}
+}
